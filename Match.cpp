@@ -13,22 +13,28 @@
 
 #include "Match.h"
 #include "dedGame.h"
+#include "mainScreen.h"
+#include "Round.h"
 #include <array>
 
 using namespace std;
 Match::Match() {
     this->boxers = new Boxer[2];
-    seconds = 0;
-    roundTime = 999999;
-    downLimit = 999;
-    numRounds = 500;
+    //seconds = 0;
+    roundTime = 300;
+    downLimit = 5;
+    numRounds = 12;
+}
+Match::Match(Boxer* boxers)
+{
+    //seconds = 0;
+    roundTime = 36;
+    downLimit = 5;
+    numRounds = 12;
+    this->boxers = boxers;
 }
 
-Match::Match(const Match& orig) {
-}
 
-Match::~Match() {
-}
 
 
 void Match::selectBoxer(){
@@ -56,47 +62,48 @@ void Match::startMatch(int numRounds, int downCount, int roundTime)
     this->downLimit = downCount;
     this->roundTime = roundTime;
     startMatch();
+    cout << "Now leaving\n";
 }
 
 void Match::startMatch(){
+    cout << "Starting match between " << boxers[0].getName() << " and "
+            << boxers[1].getName()<<endl;
+    
+    for (int i = 0; i < 2; i++)
+    {
+        boxers[i].printStats();
+    }
+    bool over = false;
     float healthRecov = 15;
     float factor = .50;
-    for(round = 1; round <= numRounds; round++)
+    rounds = new Round[numRounds];
+    for(int i = 0; i < numRounds && !over; i++)
     {
-        cout<< "ROUND " << round << "!\nKAN\nFIGHT!\n";
-        for(seconds = 0; seconds <= roundTime; seconds+=5)
+        curRound = i + 1;
+        rounds[i] = *(new Round(roundTime));
+        cout<< "ROUND " << i + 1 << "!\nKAN\nFIGHT!\n";
+        for(int j = 0; j < roundTime && !over; j++)
         {
-            printTime();
-            throwPunch();
-
-            for(int i = 0; i<2; i++)
+            rounds[i].createTick(&boxers[0], &boxers[1]);
+            if(rounds[i].checkDowns(downLimit))
             {
-                if(boxers[i].isDown())
-                {
-                    if (boxers[i].down(&boxers[(i + 1) % 2], downLimit))
-                        return;
-                }
-                boxers[i].decay();
+                over = true;
             }
-            printStats();
+            for(int k = 0; k<2; k++)
+            {
+                boxers[k].regen();
+            }
         }
+       // rounds[i].printRound();
         cout << "KAN!" << endl << "Recovers " << healthRecov << endl << endl;
-        for(int i = 0; i<2; i++)
+        for(int k = 0; k < 2; k++)
         {
-            boxers[i].regen();
-            boxers[i].interval();
+            boxers[k].interval(healthRecov);
         }
             healthRecov *= factor;
+        cout << "Now leaving round " << i + 1 << "\n";
     }
-}
-
-void Match::printTime()
-{
-    int m = seconds / 60;
-    int s = seconds % 60;
-    cout << "*******************" << endl;
-    cout << "Round: " << round << "/" << numRounds <<" " << m << ":"
-            << ((s < 10)?"0":"") << s << endl;
+    cout << "Now leaving match\n";
 }
 
 void Match::throwPunch()
@@ -119,3 +126,4 @@ void Match::printStats()
         cout << endl;
     }
 }
+

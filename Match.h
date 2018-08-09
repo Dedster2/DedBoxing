@@ -14,6 +14,7 @@
 #ifndef MATCH_H
 #define MATCH_H
 #include "Boxer.h"
+#include "Round.h"
 #include "dedGame.h"
 #include <stdio.h>
 #include <string>
@@ -21,8 +22,12 @@
 class Match {
 public:
     Match();
-    Match(const Match& orig);
-    virtual ~Match();
+    Match(Boxer *boxers);
+    void startMatch();
+    void newRound(int roundNumber);
+    int getNumRounds(){return curRound;}
+    Round* getRounds(){return rounds;}
+
     /**
      Picks the two boxers to fight
      */
@@ -32,20 +37,18 @@ public:
      Pits the two selected boxers against each other
      @param numRounds how many rounds
      @param downCount Number of downs until TKO
-     @param roundTime How long each round will last, in seconds 
+     @param roundTime How long each round will last, in ticks 
      */
     void startMatch(int numRounds, int downCount, int roundTime);
-    void startMatch();
     
 private:
-    int round;
-    int seconds;
+    int curRound;
     int roundTime, downLimit, numRounds;
-    Boxer* boxers;
-    void printTime();
+    Boxer *boxers;
+    Round *rounds;
+    
+    //void printTime();
     void printStats();
-    
-    
     void throwPunch();
 };
 

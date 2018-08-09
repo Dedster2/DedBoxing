@@ -57,9 +57,13 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
 *.bxr
 dist/
+*.stash
+*.rc
+nbproject/*
 *.xml
-*.xml
+
+*.pro
+*.QtApplication_1
 nbproject/private/private.xml

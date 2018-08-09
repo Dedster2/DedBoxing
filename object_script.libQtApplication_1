@@ -1,0 +1,19 @@
+CREATE dist/Release/MinGW-Windows/libQtApplication_1.a
+ADDMOD build/Release/MinGW-Windows/Boxer.o
+ADDMOD build/Release/MinGW-Windows/BoxingTick.o
+ADDMOD build/Release/MinGW-Windows/Match.o
+ADDMOD build/Release/MinGW-Windows/OptionsWidget.o
+ADDMOD build/Release/MinGW-Windows/Punch.o
+ADDMOD build/Release/MinGW-Windows/Round.o
+ADDMOD build/Release/MinGW-Windows/RoundTab.o
+ADDMOD build/Release/MinGW-Windows/RoundTabs.o
+ADDMOD build/Release/MinGW-Windows/boxerWidget.o
+ADDMOD build/Release/MinGW-Windows/dedGame.o
+ADDMOD build/Release/MinGW-Windows/main.o
+ADDMOD build/Release/MinGW-Windows/mainScreen.o
+ADDMOD build/Release/MinGW-Windows/moc_OptionsWidget.o
+ADDMOD build/Release/MinGW-Windows/moc_RoundTabs.o
+ADDMOD build/Release/MinGW-Windows/moc_boxerWidget.o
+ADDMOD build/Release/MinGW-Windows/moc_mainScreen.o
+ADDMOD build/Release/MinGW-Windows/moc_roundTab.o
+SAVE

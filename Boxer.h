@@ -21,8 +21,8 @@ using namespace std;
 class Boxer {
 public:
     Boxer();
-    virtual ~Boxer();
     bool loaded;
+    bool hitStun;
     
     /**
      * Sets the stats to the input
@@ -63,19 +63,28 @@ public:
     bool hits(Boxer o);
     void takesDamage(int d);
     /**
-     * Re-calculates stats based on current hp.
+     * Re-calculates stats.
      */
-    void decay();
+    void decay(int x);
     void printStats();
+    void tempDamage(int damage);
     bool isDown();
-    bool down(Boxer* o, int downLimit);
+    int down(Boxer* o);
+    bool blocks(Boxer b);
+    int calcDamage(Boxer b);
     void regen(float x);
     void regen();
     void recoverHalf();
     int getDowns(){return downs;}
-    void interval();
+    void interval(int x);
+    int getPunchThrown(){return punchesThrown;}
+    int getPunchLanded(){return punchesLanded;}
+    int getDamageTaken(){return damageTaken;}
+    int getHealthValue(){return stamina;}
     void selectPunch();
+    Punch getPunch();
     
+    string getHealth(){return "(" + to_string(stamina) + "/" + to_string(hp) + ")";}
     string getName(){return name;}
 
 private:
@@ -83,7 +92,7 @@ private:
             stamina, curDecay;
     
     int hp, maxStamina, numPunches, lastDamage, downs, totalDowns;
-    int punchTaken, punchTakenTotal;
+    int punchesLanded, punchesThrown, damageDealt, damageTaken;
     string name;
     Punch* punchList;
     Punch selectedPunch;

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mainScreen</class>
+ <widget class="QMainWindow" name="mainScreen">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>719</width>
+    <height>214</height>
+   </rect>
+  </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
+  </property>
+  <property name="windowTitle">
+   <string>DedBoxing</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QGraphicsView" name="graphicsView_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="2,2">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1">
+        <item>
+         <widget class="boxerWidget" name="BoxerA">
+          <property name="title">
+           <string>Left</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="OptionsWidget" name="optionsPane">
+          <property name="title">
+           <string>Options</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="boxerWidget" name="BoxerB">
+          <property name="title">
+           <string>Right</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="RoundTabs" name="Test" native="true"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>boxerWidget</class>
+   <extends>QGroupBox</extends>
+   <header>boxerWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>OptionsWidget</class>
+   <extends>QGroupBox</extends>
+   <header>optionswidget.h</header>
+   <container>1</container>
+   <slots>
+    <signal>sendOptions(int,int,int)</signal>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>RoundTabs</class>
+   <extends>QWidget</extends>
+   <header>roundtabs.h</header>
+   <container>1</container>
+   <slots>
+    <slot>createRounds(Match)</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>optionsPane</sender>
+   <signal>sendOptions(int,int,int)</signal>
+   <receiver>mainScreen</receiver>
+   <slot>startMatch(int,int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>598</x>
+     <y>373</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>648</x>
+     <y>1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mainScreen</sender>
+   <signal>sendMatch(Match)</signal>
+   <receiver>Test</receiver>
+   <slot>createRounds(Match)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>300</x>
+     <y>9</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>432</x>
+     <y>504</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <signal>sendMatch(Match)</signal>
+  <slot>startMatch(int,int,int)</slot>
+ </slots>
+</ui>
