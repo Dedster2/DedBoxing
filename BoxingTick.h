@@ -16,10 +16,11 @@
 
 #include "Boxer.h"
 #include "Punch.h"
+#include "GameTick.h"
 #include <string>
 #include <iostream>
 
-class BoxingTick
+class BoxingTick: public GameTick
 {
 public:
     /**
@@ -33,14 +34,13 @@ public:
      */
     BoxingTick();
     BoxingTick(Boxer a, Boxer b, Punch p, int damage, string time, int blockDodge);
-    BoxingTick(Boxer *a, Boxer *b, string time);
+    BoxingTick(Boxer *a, Boxer *b);
     string printTick();
-    string toString();
+    std::string toString();
     int getDownTime();
     int getRecieverDowns();
-    Boxer *getBoxers(){cout <<"R"; return boxers;}
 private:
-    Boxer thrower, reciever, boxers[2];
+    Boxer thrower, reciever;
     Punch punchThrown;
     int damageTaken, blockDodgeFlag, downTime;
     string time;

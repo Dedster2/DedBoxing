@@ -19,7 +19,7 @@
 
 class Round {
 public:
-    Round(int tickLength);
+    Round(int tickLength, int downLimit);
     Round(){}
 
     /**
@@ -27,7 +27,7 @@ public:
      * @param tick Tick to be added to the current end of the round
      * @returns True if no more ticks can be added to this round
      */
-    bool logTick(BoxingTick tick);
+    bool logTick(BoxingTick *tick);
     /**
      * Checks if the match should end due to (t)ko.
      * @param limit The number of downs needed for a TKO.
@@ -36,15 +36,20 @@ public:
     bool checkDowns(int limit);
     void printRound();
     void createTick(Boxer *a, Boxer *b);
+    bool createRound(Boxer *a, Boxer *b);
     int getRoundLength(){return curTick;}
-    BoxingTick getTick(int n){return ticks[n];}
+    GameTick* getTick(int n){return ticks[n];}
     Boxer *getBoxers(); //todo:get boxers from the last tick
 private:
-    int tickLength, curTick;
+    int tickLength, downLimit, curTick;
     int numDowns();
+    /**
+     Keeps track of the boxers
+     */
+    Boxer boxersEnd[2];
     
     int down(Boxer bx);
-    BoxingTick *ticks;
+    GameTick **ticks;
     
     
 };

@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
@@ -30,36 +29,24 @@ class Ui_mainScreen
 public:
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout_2;
-    QGraphicsView *graphicsView_2;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     boxerWidget *BoxerA;
     OptionsWidget *optionsPane;
     boxerWidget *BoxerB;
     RoundTabs *Test;
-    QGraphicsView *graphicsView;
 
     void setupUi(QMainWindow *mainScreen)
     {
         if (mainScreen->objectName().isEmpty())
             mainScreen->setObjectName(QStringLiteral("mainScreen"));
-        mainScreen->resize(719, 214);
+        mainScreen->resize(800, 800);
+        mainScreen->setBaseSize(QSize(800, 800));
         mainScreen->setCursor(QCursor(Qt::ArrowCursor));
         centralwidget = new QWidget(mainScreen);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         horizontalLayout_2 = new QHBoxLayout(centralwidget);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        graphicsView_2 = new QGraphicsView(centralwidget);
-        graphicsView_2->setObjectName(QStringLiteral("graphicsView_2"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(graphicsView_2->sizePolicy().hasHeightForWidth());
-        graphicsView_2->setSizePolicy(sizePolicy);
-        graphicsView_2->setMinimumSize(QSize(0, 0));
-
-        horizontalLayout_2->addWidget(graphicsView_2);
-
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
@@ -94,14 +81,6 @@ public:
         verticalLayout->setStretch(1, 2);
 
         horizontalLayout_2->addLayout(verticalLayout);
-
-        graphicsView = new QGraphicsView(centralwidget);
-        graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        sizePolicy.setHeightForWidth(graphicsView->sizePolicy().hasHeightForWidth());
-        graphicsView->setSizePolicy(sizePolicy);
-        graphicsView->setMinimumSize(QSize(0, 0));
-
-        horizontalLayout_2->addWidget(graphicsView);
 
         mainScreen->setCentralWidget(centralwidget);
 

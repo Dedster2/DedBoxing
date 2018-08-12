@@ -27,7 +27,7 @@ BoxingTick::BoxingTick()
 {
 }
 
-BoxingTick::BoxingTick(Boxer *a, Boxer *b, string time) : downTime(0), time(time)
+BoxingTick::BoxingTick(Boxer *a, Boxer *b) : downTime(0)
 {
     Boxer *iniA = a, *iniB = b;
     a->selectPunch();
@@ -63,10 +63,7 @@ BoxingTick::BoxingTick(Boxer *a, Boxer *b, string time) : downTime(0), time(time
         blockDodgeFlag = 0;
         b->takesDamage(damageTaken);
     }
-    if (b->isDown())
-    {
-        downTime = b->down(a);
-    }
+    
     thrower = *a;
     reciever = *b;
     
@@ -75,11 +72,11 @@ BoxingTick::BoxingTick(Boxer *a, Boxer *b, string time) : downTime(0), time(time
 }
 
 
-    string BoxingTick::toString()
+    std::string BoxingTick::toString()
 {
         cout<< blockDodgeFlag << endl;
     using namespace std;
-    string out = time + " : " + thrower.getName() + thrower.getHealth() + " threw a " 
+    string out = thrower.getName() + thrower.getHealth() + " threw a " 
             + punchThrown.getName() + " at " + reciever.getName() + reciever.getHealth() + ". " 
             + reciever.getName();
     switch(blockDodgeFlag)

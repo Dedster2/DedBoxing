@@ -27,6 +27,7 @@ public:
     
 private:
     Ui::roundTab widget;
+    Round r;
     
 private slots:
     void test(int i);

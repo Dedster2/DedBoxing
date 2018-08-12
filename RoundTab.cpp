@@ -28,11 +28,11 @@ void roundTab::setup(Round r)
     cout << Boxers[0].getName();
     for (int i = 0; i < l; i++)
     {
-        widget.list->addItem(QString::fromStdString(r.getTick(i).toString()));
+        widget.list->addItem(QString::fromStdString(r.getTick(i)->toString()));
     }
         widget.boxerStats1->update(Boxers[0]);
         widget.boxerStats2->update(Boxers[1]);
-    
+        this->r = r;
 }
 
 
@@ -44,4 +44,8 @@ void roundTab::setRoundNum(int n)
 void roundTab::test(int i)
 {
     cout << i << endl;
+    GameTick *g = r.getTick(i);
+    Boxer *b = g->getBoxers();
+    widget.boxerStats1->update(b[0]);
+    widget.boxerStats2->update(b[1]);
 }

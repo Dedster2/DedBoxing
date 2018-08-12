@@ -80,28 +80,10 @@ void Match::startMatch(){
     for(int i = 0; i < numRounds && !over; i++)
     {
         curRound = i + 1;
-        rounds[i] = *(new Round(roundTime));
+        rounds[i] = *(new Round(roundTime, downLimit));
         cout<< "ROUND " << i + 1 << "!\nKAN\nFIGHT!\n";
-        for(int j = 0; j < roundTime && !over; j++)
-        {
-            rounds[i].createTick(&boxers[0], &boxers[1]);
-            if(rounds[i].checkDowns(downLimit))
-            {
-                over = true;
-            }
-            for(int k = 0; k<2; k++)
-            {
-                boxers[k].regen();
-            }
-        }
-       // rounds[i].printRound();
-        cout << "KAN!" << endl << "Recovers " << healthRecov << endl << endl;
-        for(int k = 0; k < 2; k++)
-        {
-            boxers[k].interval(healthRecov);
-        }
-            healthRecov *= factor;
-        cout << "Now leaving round " << i + 1 << "\n";
+        if(rounds[i].createRound(&boxers[0], &boxers[1]))
+            break;
     }
     cout << "Now leaving match\n";
 }

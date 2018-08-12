@@ -84,7 +84,7 @@ public:
     void selectPunch();
     Punch getPunch();
     
-    string getHealth(){return "(" + to_string(stamina) + "/" + to_string(hp) + ")";}
+    string getHealth(){return "(" + to_string((int)stamina) + "/" + to_string(hp) + ")";}
     string getName(){return name;}
 
 private:

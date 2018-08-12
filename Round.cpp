@@ -12,41 +12,25 @@
  */
 
 #include "Round.h"
+#include "DownTick.h"
+#include "TKOTick.h"
+#include "IntervalTick.h"
+#include "CountTick.h"
 
 
-Round::Round(int tickLength) : tickLength(tickLength), curTick(0),
-        ticks(new BoxingTick[tickLength])
+Round::Round(int tickLength, int downLimit) : tickLength(tickLength), 
+        downLimit(downLimit), curTick(0), ticks(new GameTick*[tickLength * 3])
 {
 }
 
 Boxer* Round::getBoxers()
 {
-    return ticks[curTick-1].getBoxers();
+    return boxersEnd;
 }
 
 
 
 
-void Round::createTick(Boxer* a, Boxer* b)
-{
-    int seconds = curTick * 5;
-    string secondString = (seconds % 60 < 10)?
-        ("0" + to_string(seconds % 60)):
-        to_string(seconds % 60);
-    string timeString = to_string(seconds / 60) + ":" + secondString;
-    
-    
-    BoxingTick *t = new BoxingTick(a, b, timeString);
-    logTick(*t);
-    
-
-}
-
-bool Round::logTick(BoxingTick tick)
-{
-    ticks[curTick] = tick;
-    return (++curTick == tickLength);
-}
 
 void Round::printRound()
 {
@@ -57,13 +41,42 @@ void Round::printRound()
     }
 }
 
-bool Round::checkDowns(int limit)
+
+bool Round::createRound(Boxer* a, Boxer* b)
 {
-    BoxingTick t = ticks[curTick - 1];
-    int dt = t.getDownTime();
-    if (dt != 0)
+    int boxingTicks = 0;
+    while(boxingTicks < tickLength)
     {
-        return (t.getRecieverDowns() >= limit || dt >= 10);
+        ticks[curTick++] = new BoxingTick(a, b);
+        if (a->isDown() || b->isDown())
+        {
+            Boxer *downed = (a->isDown())?a:b;
+            Boxer *opponent = (a->isDown())?b:a;
+            DownTick *downTick;
+             ticks[curTick++] = downTick =  new DownTick(a, b, downLimit);
+            //if (downTick.ko())
+            {
+                //ticks[curTick++] = new KOTick(a, b);
+                //return;
+            }
+            if (downTick->tko)
+            {
+                ticks[curTick++] = new TKOTick(a,b);
+                return true;
+            }
+            else
+            {
+                CountTick *ct = new CountTick(a, b, downed, opponent);
+                ticks[curTick++] = ct;
+                if(ct->ko())
+                {
+                    return true;
+                }
+                
+            }
+        }
+        boxingTicks++;   
     }
+    ticks[curTick++] = new IntervalTick(a, b);
     return false;
 }
