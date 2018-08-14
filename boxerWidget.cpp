@@ -149,3 +149,14 @@ void boxerWidget::saveBoxer()
         
 }
 
+void boxerWidget::update(Boxer b)
+{
+    widget.leName->setText(QString::fromStdString(b.getName()));
+    int stats[5];
+    b.getStats(stats);
+    widget.sbStrength->setValue(stats[0]);
+    widget.sbDefense->setValue(stats[1]);
+    widget.sbHit->setValue(stats[2]);
+    widget.sbBlock->setValue(stats[3]);
+    widget.sbSpeed->setValue(stats[4]);
+}

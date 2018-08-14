@@ -42,7 +42,11 @@ public:
 private:
     Boxer thrower, reciever;
     Punch punchThrown;
-    int damageTaken, blockDodgeFlag, downTime;
+    int blockDodgeFlag, downTime;
+    float damageTaken;
     string time;
+    string bodyPart, side;
+    string bodyPartList[3] = {"Head", "Torso", "Stomach"};
+    string sides[2] = {"Left", "Right"};
 };
 #endif /* BOXINGTICK_H */

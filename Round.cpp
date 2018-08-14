@@ -16,6 +16,7 @@
 #include "TKOTick.h"
 #include "IntervalTick.h"
 #include "CountTick.h"
+#include "ClinchTick.h"
 
 
 Round::Round(int tickLength, int downLimit) : tickLength(tickLength), 
@@ -47,7 +48,14 @@ bool Round::createRound(Boxer* a, Boxer* b)
     int boxingTicks = 0;
     while(boxingTicks < tickLength)
     {
-        ticks[curTick++] = new BoxingTick(a, b);
+        if((a->clinchReq() && rand() % 100 < 20) 
+            ||(b->clinchReq() && rand() % 100 < 20) )
+        {
+            Boxer* low = (a->getHealthValue() < b->getHealthValue())?a:b;
+            ticks[curTick++] = new ClinchTick(a, b, low);
+        }
+        else
+            ticks[curTick++] = new BoxingTick(a, b);
         if (a->isDown() || b->isDown())
         {
             Boxer *downed = (a->isDown())?a:b;
@@ -72,9 +80,10 @@ bool Round::createRound(Boxer* a, Boxer* b)
                 {
                     return true;
                 }
-                
             }
         }
+        a->regen();
+        b->regen();
         boxingTicks++;   
     }
     ticks[curTick++] = new IntervalTick(a, b);

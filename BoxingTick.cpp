@@ -32,6 +32,8 @@ BoxingTick::BoxingTick(Boxer *a, Boxer *b) : downTime(0)
     Boxer *iniA = a, *iniB = b;
     a->selectPunch();
     b->selectPunch();
+    bodyPart = bodyPartList[rand() % 3];
+    side = sides[rand() % 2];
     //swaps a and b if a is slower, such that a will always
     //be the one throwing the punch
     
@@ -44,6 +46,7 @@ BoxingTick::BoxingTick(Boxer *a, Boxer *b) : downTime(0)
     blockDodgeFlag = 0;
     punchThrown = a->getPunch();
     damageTaken = a->calcDamage(*b);
+    damageTaken *= .75;
     cout << "DT = " << damageTaken << endl;
     if (!a->hits(*b))
     {
@@ -76,9 +79,10 @@ BoxingTick::BoxingTick(Boxer *a, Boxer *b) : downTime(0)
 {
         cout<< blockDodgeFlag << endl;
     using namespace std;
-    string out = thrower.getName() + thrower.getHealth() + " threw a " 
-            + punchThrown.getName() + " at " + reciever.getName() + reciever.getHealth() + ". " 
-            + reciever.getName();
+    string out = thrower.getName() + " threw a " + side + " " +
+            punchThrown.getName() + " at " + reciever.getName() +
+            + "'s " + bodyPart + ". "  +
+            reciever.getName();
     switch(blockDodgeFlag)
     {
         case 0:

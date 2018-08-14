@@ -61,7 +61,7 @@ public:
     bool outSpeeds(Boxer o);
     
     bool hits(Boxer o);
-    void takesDamage(int d);
+    void takesDamage(float d);
     /**
      * Re-calculates stats.
      */
@@ -76,12 +76,15 @@ public:
     void regen();
     void recoverHalf();
     int getDowns(){return downs;}
+    int getBlocks(){return numBlocks;}
     void interval(int x);
     int getPunchThrown(){return punchesThrown;}
     int getPunchLanded(){return punchesLanded;}
     int getDamageTaken(){return damageTaken;}
     int getHealthValue(){return stamina;}
     void selectPunch();
+    bool clinchReq();
+    void getStats(int *stats);
     Punch getPunch();
     
     string getHealth(){return "(" + to_string((int)stamina) + "/" + to_string(hp) + ")";}
@@ -92,7 +95,7 @@ private:
             stamina, curDecay;
     
     int hp, maxStamina, numPunches, lastDamage, downs, totalDowns;
-    int punchesLanded, punchesThrown, damageDealt, damageTaken;
+    int punchesLanded, punchesThrown, damageDealt, damageTaken, numBlocks;
     string name;
     Punch* punchList;
     Punch selectedPunch;

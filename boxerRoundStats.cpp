@@ -33,8 +33,11 @@ void boxerRoundStats::update(Boxer b)
     
     widget.leDowns->setText
     (QString::fromStdString(to_string(b.getDowns())));
+    widget.leBlocked->setText
+    (QString::fromStdString(to_string(b.getBlocks())));
     int health = max(0, b.getHealthValue());
     widget.pbHealth->setValue(health);
+    //widget.stats->update(b);
 }
 
 

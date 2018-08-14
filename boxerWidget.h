@@ -30,6 +30,7 @@ public:
     boxerWidget(QWidget *parent, string defName);
     Boxer getBoxer();
     string getName();
+    void update(Boxer b);
 public slots:
    //     void randomize();
     void loadBoxer();

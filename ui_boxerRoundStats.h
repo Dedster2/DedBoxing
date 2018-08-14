@@ -14,11 +14,11 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QFormLayout>
-#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QProgressBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -26,7 +26,7 @@ QT_BEGIN_NAMESPACE
 class Ui_boxerRoundStats
 {
 public:
-    QHBoxLayout *horizontalLayout;
+    QVBoxLayout *verticalLayout;
     QFormLayout *formLayout;
     QLabel *label;
     QLineEdit *lePunchThrown;
@@ -36,6 +36,8 @@ public:
     QLineEdit *leDamageTake;
     QLabel *label_6;
     QLineEdit *leDowns;
+    QLabel *label_4;
+    QLineEdit *leBlocked;
     QLabel *label_3;
     QProgressBar *pbHealth;
 
@@ -44,8 +46,8 @@ public:
         if (boxerRoundStats->objectName().isEmpty())
             boxerRoundStats->setObjectName(QStringLiteral("boxerRoundStats"));
         boxerRoundStats->resize(400, 300);
-        horizontalLayout = new QHBoxLayout(boxerRoundStats);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        verticalLayout = new QVBoxLayout(boxerRoundStats);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         formLayout = new QFormLayout();
         formLayout->setObjectName(QStringLiteral("formLayout"));
         label = new QLabel(boxerRoundStats);
@@ -98,10 +100,22 @@ public:
 
         formLayout->setWidget(3, QFormLayout::FieldRole, leDowns);
 
+        label_4 = new QLabel(boxerRoundStats);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        formLayout->setWidget(4, QFormLayout::LabelRole, label_4);
+
+        leBlocked = new QLineEdit(boxerRoundStats);
+        leBlocked->setObjectName(QStringLiteral("leBlocked"));
+        leBlocked->setEnabled(false);
+        leBlocked->setToolTipDuration(0);
+
+        formLayout->setWidget(4, QFormLayout::FieldRole, leBlocked);
+
         label_3 = new QLabel(boxerRoundStats);
         label_3->setObjectName(QStringLiteral("label_3"));
 
-        formLayout->setWidget(4, QFormLayout::LabelRole, label_3);
+        formLayout->setWidget(5, QFormLayout::LabelRole, label_3);
 
         pbHealth = new QProgressBar(boxerRoundStats);
         pbHealth->setObjectName(QStringLiteral("pbHealth"));
@@ -111,10 +125,10 @@ public:
         pbHealth->setInvertedAppearance(false);
         pbHealth->setTextDirection(QProgressBar::TopToBottom);
 
-        formLayout->setWidget(4, QFormLayout::FieldRole, pbHealth);
+        formLayout->setWidget(5, QFormLayout::FieldRole, pbHealth);
 
 
-        horizontalLayout->addLayout(formLayout);
+        verticalLayout->addLayout(formLayout);
 
 
         retranslateUi(boxerRoundStats);
@@ -129,6 +143,7 @@ public:
         label_2->setText(QApplication::translate("boxerRoundStats", "Punches Landed", nullptr));
         label_5->setText(QApplication::translate("boxerRoundStats", "Damage Taken", nullptr));
         label_6->setText(QApplication::translate("boxerRoundStats", "Downs", nullptr));
+        label_4->setText(QApplication::translate("boxerRoundStats", "Punches Blocked", nullptr));
         label_3->setText(QApplication::translate("boxerRoundStats", "Health", nullptr));
     } // retranslateUi
 

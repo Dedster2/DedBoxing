@@ -27,14 +27,13 @@ Boxer::Boxer() {
     downs = 0;
     curDecay = 0;
     totalDowns = 0;
-    punchesLanded = punchesThrown = damageDealt = damageTaken = 0;
-    numPunches = 5;
+    punchesLanded = punchesThrown = damageDealt = damageTaken = numBlocks = 0;
+    numPunches = 4;
     punchList = new Punch[numPunches];
-    punchList[0] = Punch(.9, 2, 1, "Body Jab");
-    punchList[1] = Punch(.9, 2, 1, "Head Jab");
-    punchList[2] = Punch(.75, 4, 2, "Straight");
-    punchList[3] = Punch(.5, 8, 3, "Upper");
-    punchList[4] = Punch(.65, 6, 2, "Hook");
+    punchList[0] = Punch(.9, 2, 1, "Jab");
+    punchList[1] = Punch(.75, 4, 2, "Straight");
+    punchList[2] = Punch(.5, 8, 3, "Upper");
+    punchList[3] = Punch(.65, 6, 2, "Hook");
 }
 
 
@@ -220,11 +219,11 @@ void Boxer::printStats()
             << speed << " " << curDecay <<endl;
 }
 
-void Boxer::takesDamage(int d)
+void Boxer::takesDamage(float d)
 {
     damageTaken += d;
-    hp = max(0, hp - d);
-    stamina -= 3 * d;
+    hp = max(0.0, hp - d + 0.0);
+    stamina -= 5 * d;
     decay(d);
 }
 
@@ -267,10 +266,6 @@ int Boxer::down(Boxer* o)
     stamina = 0;
     stamina = hp;
     o->recoverHalf();
-    curDecay *= -0.007 * hp + .7;
-    o->curDecay *= -0.007 * o->hp + .7;
-    
-    curDecay = max(0.0, curDecay - (hp / 10.0));
     return i;
 }
 
@@ -278,7 +273,7 @@ int Boxer::down(Boxer* o)
 
 void Boxer::regen()
 {
-    curDecay = max(0.0, curDecay - (hp / 200.0));
+    stamina = min(stamina + 2.0, hp + 0.0);
     float ratio = pow(DECAYRATE, curDecay);
             
     strength = max(1, (int) (mStr * ratio));
@@ -287,6 +282,13 @@ void Boxer::regen()
     def = max(1, (int) (mDef * ratio));
     speed = max(1, (int) (mSpd * ratio));
 }
+
+void Boxer::regen(float x)
+{
+    //hp = min(hp + x / 5 + 0.0, 100.0);
+    stamina = min(stamina + 0.0 + x, hp + 0.0);
+}
+
 
 void Boxer::recoverHalf()
 {
@@ -300,10 +302,10 @@ void Boxer::interval(int x)
    // hp = min(100, hp + (hp) / 10);
     //stamina = hp;
     cout << name << "recovers " << x << " HP" << endl;
-    hp = min(100.0, hp * 1.0 + x);
-    recoverHalf();
+    min(100.0, hp * 1.0 + x);
+    stamina = hp;
     curDecay *= -0.007 * hp + .95;
-    downs = punchesLanded = punchesThrown = damageDealt = damageTaken = 0;
+    downs = punchesLanded = punchesThrown = damageDealt = damageTaken = numBlocks = 0;
 }
 
 void Boxer::selectPunch()
@@ -327,11 +329,30 @@ int Boxer::calcDamage(Boxer b)
 
 bool Boxer::blocks(Boxer b)
 {
-    return succeedsRoll(b.tech * b.selectedPunch.getAcc(), def);
+    if(succeedsRoll(b.tech * b.selectedPunch.getAcc(), def))
+    {
+        numBlocks++;
+        return true;
+    }
+    return false;
 }
 
 void Boxer::tempDamage(int damage)
 {
     damageTaken += damage;
     stamina-= damage;
+}
+
+bool Boxer::clinchReq()
+{
+    return false;
+}
+
+void Boxer::getStats(int *stats)
+{
+    stats[0] = strength;
+    stats[1] = fort;
+    stats[2] = tech;
+    stats[3] = def;
+    stats[4] = speed;
 }
