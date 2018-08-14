@@ -26,5 +26,6 @@ Art + modding support someday
 Sound someday
 
 
+Current build: https://puu.sh/BdR2S/a4d9e623b3.zip (8/13/18)
 
-Current build: https://puu.sh/BdckY/b0cb09d765.zip
+Previous build: https://puu.sh/BdckY/b0cb09d765.zip (8/12/18)
