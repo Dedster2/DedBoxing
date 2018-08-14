@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 alper_000
+ * Copyright (C) 2018 Dedster
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 
 /* 
  * File:   ClinchTick.cpp
- * Author: alper_000
+ * Author: Dedster
  * 
  * Created on August 13, 2018, 7:50 PM
  */
