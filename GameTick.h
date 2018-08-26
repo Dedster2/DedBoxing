@@ -35,7 +35,7 @@
 class GameTick {
 public:
     GameTick();
-    
+    virtual ~GameTick();
     virtual std::string toString();
     Boxer* getBoxers();
 private:

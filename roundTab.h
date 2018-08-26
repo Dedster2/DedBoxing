@@ -17,20 +17,30 @@
 #include "ui_roundTab.h"
 #include "Round.h"
 #include <string>
+#include <unordered_map>
 
 class roundTab : public QWidget {
     Q_OBJECT
 public:
     roundTab(QWidget *parent = 0);
+    ~roundTab();
     void setRoundNum(int n);
-    void setup(Round r);
+    void setup(Round *r);
     
+signals:
+    void setImages(string s1, string s2);
+
 private:
     Ui::roundTab widget;
-    Round r;
+    Round *r;
+
+    
+   
     
 private slots:
     void test(int i);
 };
+
+
 
 #endif /* _ROUNDTAB_H */

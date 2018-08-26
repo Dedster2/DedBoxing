@@ -20,7 +20,7 @@
 #include <string>
 #include <iostream>
 
-class BoxingTick: public GameTick
+class PunchThrownTick: public GameTick
 {
 public:
     /**
@@ -32,9 +32,9 @@ public:
      * @param time Time the punch happened as a string
      * @param blockDodge 0 if the punch hit, 1 if blocked, 2 if dodged
      */
-    BoxingTick();
-    BoxingTick(Boxer a, Boxer b, Punch p, int damage, string time, int blockDodge);
-    BoxingTick(Boxer *a, Boxer *b);
+    PunchThrownTick();
+    PunchThrownTick(Boxer a, Boxer b, Punch p, int damage, string time, int blockDodge);
+    PunchThrownTick(Boxer *a, Boxer *b);
     string printTick();
     std::string toString();
     int getDownTime();
@@ -48,5 +48,7 @@ private:
     string bodyPart, side;
     string bodyPartList[3] = {"Head", "Torso", "Stomach"};
     string sides[2] = {"Left", "Right"};
+    
+    void buildStates();
 };
 #endif /* BOXINGTICK_H */

@@ -111,7 +111,7 @@
  <connections>
   <connection>
    <sender>startButton</sender>
-   <signal>clicked(bool)</signal>
+   <signal>clicked()</signal>
    <receiver>OptionsWidget</receiver>
    <slot>startClicked()</slot>
    <hints>

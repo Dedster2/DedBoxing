@@ -16,6 +16,7 @@
 #include <string>
 #include <stdlib.h>
 #include "QGroupBox"
+#include <unordered_map>
 
 #include "Boxer.h"
 #include "ui_boxerWidget.h"
@@ -29,8 +30,11 @@ public:
     boxerWidget(QWidget *parent = 0);
     boxerWidget(QWidget *parent, string defName);
     Boxer getBoxer();
+    string getImageFolderName();
     string getName();
     void update(Boxer b);
+    unordered_map<string, QPixmap*> getImages(){return images;}
+    
 public slots:
    //     void randomize();
     void loadBoxer();
@@ -38,7 +42,10 @@ public slots:
     void setT(const QString& s);
 private:
     Ui::boxerWidget widget;
-    Boxer *boxer;
+    Boxer boxer;
+    unordered_map<string, QPixmap*> images;
+private slots:
+    void loadImages();
 };
 
 #endif /* BOXERWIDGET_H */

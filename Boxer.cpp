@@ -29,11 +29,11 @@ Boxer::Boxer() {
     totalDowns = 0;
     punchesLanded = punchesThrown = damageDealt = damageTaken = numBlocks = 0;
     numPunches = 4;
-    punchList = new Punch[numPunches];
     punchList[0] = Punch(.9, 2, 1, "Jab");
     punchList[1] = Punch(.75, 4, 2, "Straight");
     punchList[2] = Punch(.5, 8, 3, "Upper");
     punchList[3] = Punch(.65, 6, 2, "Hook");
+    setState("Null");
 }
 
 
@@ -94,7 +94,6 @@ bool Boxer::loadFromFile(string name)
 //                boxerFile.read((char*) &punchList[i], sizeof(Punch));
 //            }
             
-            punchList = new Punch[4];
             punchList[0] = Punch(.9, 1, 1, "Jab");
             punchList[1] = Punch(.75, 3, 2, "Straight");
             punchList[2] = Punch(.5, 5, 6, "Upper");
@@ -258,7 +257,6 @@ int Boxer::down(Boxer* o)
     {
         curHealed++;
     }
-    cout << endl;
     if (i == 10)
     {
         return 10;
@@ -301,7 +299,6 @@ void Boxer::interval(int x)
 {
    // hp = min(100, hp + (hp) / 10);
     //stamina = hp;
-    cout << name << "recovers " << x << " HP" << endl;
     min(100.0, hp * 1.0 + x);
     stamina = hp;
     curDecay *= -0.007 * hp + .95;
@@ -356,3 +353,4 @@ void Boxer::getStats(int *stats)
     stats[3] = def;
     stats[4] = speed;
 }
+

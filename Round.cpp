@@ -55,7 +55,7 @@ bool Round::createRound(Boxer* a, Boxer* b)
             ticks[curTick++] = new ClinchTick(a, b, low);
         }
         else
-            ticks[curTick++] = new BoxingTick(a, b);
+            ticks[curTick++] = new PunchThrownTick(a, b);
         if (a->isDown() || b->isDown())
         {
             Boxer *downed = (a->isDown())?a:b;
@@ -88,4 +88,11 @@ bool Round::createRound(Boxer* a, Boxer* b)
     }
     ticks[curTick++] = new IntervalTick(a, b);
     return false;
+}
+
+Round::~ Round()
+{
+    for (int i = 0; i < curTick; i++)
+        delete ticks[i];
+    delete[] ticks;
 }

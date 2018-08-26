@@ -16,6 +16,7 @@
 
 #include "ui_mainScreen.h"
 #include "boxerWidget.h"
+#include <unordered_map>
 
 class mainScreen : public QMainWindow {
     Q_OBJECT
@@ -24,16 +25,20 @@ public:
 public slots:
     void newRound(int roundNum);
     void startMatch(int numRounds, int downCount, int roundLength);
+    void setImages(string s1, string s2);
+
     
  signals:
-    void sendMatch(Match m);
+    void sendMatch(Match *m);
 private:
     Ui::mainScreen widget;
     boxerWidget *b, *b2;
-    Match *m;
+    Match m;
+    std::unordered_map<std::string, QPixmap*> leftImages; 
+    std::unordered_map<std::string, QPixmap*> rightImages;
 
 private slots:
-
+ 
 };
 
 #endif /* _MAINSCREEN_H */

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainScreen.ui'
 **
-** Created by: Qt User Interface Compiler version 5.10.1
+** Created by: Qt User Interface Compiler version 5.11.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,11 +10,9 @@
 #define UI_MAINSCREEN_H
 
 #include <QtCore/QVariant>
-#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -28,26 +26,26 @@ class Ui_mainScreen
 {
 public:
     QWidget *centralwidget;
-    QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     boxerWidget *BoxerA;
     OptionsWidget *optionsPane;
     boxerWidget *BoxerB;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *imgLeft;
     RoundTabs *Test;
+    QLabel *imgRight;
 
     void setupUi(QMainWindow *mainScreen)
     {
         if (mainScreen->objectName().isEmpty())
             mainScreen->setObjectName(QStringLiteral("mainScreen"));
-        mainScreen->resize(800, 800);
+        mainScreen->resize(1109, 800);
         mainScreen->setBaseSize(QSize(800, 800));
         mainScreen->setCursor(QCursor(Qt::ArrowCursor));
         centralwidget = new QWidget(mainScreen);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        horizontalLayout_2 = new QHBoxLayout(centralwidget);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        verticalLayout = new QVBoxLayout();
+        verticalLayout = new QVBoxLayout(centralwidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
@@ -72,21 +70,53 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        imgLeft = new QLabel(centralwidget);
+        imgLeft->setObjectName(QStringLiteral("imgLeft"));
+        QSizePolicy sizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(imgLeft->sizePolicy().hasHeightForWidth());
+        imgLeft->setSizePolicy(sizePolicy);
+        imgLeft->setFrameShape(QFrame::Panel);
+        imgLeft->setFrameShadow(QFrame::Sunken);
+        imgLeft->setLineWidth(3);
+        imgLeft->setMidLineWidth(3);
+        imgLeft->setScaledContents(true);
+
+        horizontalLayout_2->addWidget(imgLeft);
+
         Test = new RoundTabs(centralwidget);
         Test->setObjectName(QStringLiteral("Test"));
 
-        verticalLayout->addWidget(Test);
+        horizontalLayout_2->addWidget(Test);
 
-        verticalLayout->setStretch(0, 2);
-        verticalLayout->setStretch(1, 2);
+        imgRight = new QLabel(centralwidget);
+        imgRight->setObjectName(QStringLiteral("imgRight"));
+        sizePolicy.setHeightForWidth(imgRight->sizePolicy().hasHeightForWidth());
+        imgRight->setSizePolicy(sizePolicy);
+        imgRight->setSizeIncrement(QSize(0, 0));
+        imgRight->setFrameShape(QFrame::Panel);
+        imgRight->setFrameShadow(QFrame::Sunken);
+        imgRight->setLineWidth(3);
+        imgRight->setMidLineWidth(3);
+        imgRight->setScaledContents(true);
 
-        horizontalLayout_2->addLayout(verticalLayout);
+        horizontalLayout_2->addWidget(imgRight);
+
+        horizontalLayout_2->setStretch(0, 1);
+        horizontalLayout_2->setStretch(1, 1);
+        horizontalLayout_2->setStretch(2, 1);
+
+        verticalLayout->addLayout(horizontalLayout_2);
 
         mainScreen->setCentralWidget(centralwidget);
 
         retranslateUi(mainScreen);
         QObject::connect(optionsPane, SIGNAL(sendOptions(int,int,int)), mainScreen, SLOT(startMatch(int,int,int)));
-        QObject::connect(mainScreen, SIGNAL(sendMatch(Match)), Test, SLOT(createRounds(Match)));
+        QObject::connect(Test, SIGNAL(setImages(string,string)), mainScreen, SLOT(setImages(string,string)));
+        QObject::connect(mainScreen, SIGNAL(sendMatch(Match*)), Test, SLOT(createRounds(Match*)));
 
         QMetaObject::connectSlotsByName(mainScreen);
     } // setupUi
@@ -97,6 +127,8 @@ public:
         BoxerA->setTitle(QApplication::translate("mainScreen", "Left", nullptr));
         optionsPane->setTitle(QApplication::translate("mainScreen", "Options", nullptr));
         BoxerB->setTitle(QApplication::translate("mainScreen", "Right", nullptr));
+        imgLeft->setText(QApplication::translate("mainScreen", "LeftImage", nullptr));
+        imgRight->setText(QApplication::translate("mainScreen", "RightImage", nullptr));
     } // retranslateUi
 
 };

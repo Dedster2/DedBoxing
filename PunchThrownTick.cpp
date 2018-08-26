@@ -11,23 +11,23 @@
  * Created on July 15, 2018, 12:44 PM
  */
 
-#include "BoxingTick.h"
+#include "PunchThrownTick.h"
 #include "dedGame.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
 
-BoxingTick::BoxingTick(Boxer a, Boxer b, Punch p, int damage, string time,
+PunchThrownTick::PunchThrownTick(Boxer a, Boxer b, Punch p, int damage, string time,
         int blockDodge): thrower(a), reciever(b), punchThrown(p),
-        damageTaken(damage), blockDodgeFlag(blockDodge), time(time)
+        blockDodgeFlag(blockDodge),  damageTaken(damage), time(time)
 {
 }
 
-BoxingTick::BoxingTick()
+PunchThrownTick::PunchThrownTick()
 {
 }
 
-BoxingTick::BoxingTick(Boxer *a, Boxer *b) : downTime(0)
+PunchThrownTick::PunchThrownTick(Boxer *a, Boxer *b) : downTime(0)
 {
     Boxer *iniA = a, *iniB = b;
     a->selectPunch();
@@ -47,12 +47,12 @@ BoxingTick::BoxingTick(Boxer *a, Boxer *b) : downTime(0)
     punchThrown = a->getPunch();
     damageTaken = a->calcDamage(*b);
     damageTaken *= .75;
-    cout << "DT = " << damageTaken << endl;
     if (!a->hits(*b))
     {
         blockDodgeFlag = 2;
         damageTaken = 0;
         downTime = 0;
+        b->setState("Dodge");
     }
     
     else if (b->blocks(*a))
@@ -60,24 +60,32 @@ BoxingTick::BoxingTick(Boxer *a, Boxer *b) : downTime(0)
         blockDodgeFlag = 1;
         damageTaken /= 2;
         b->tempDamage(damageTaken);
+        b->setState("Block");
     }
     else
     {
         blockDodgeFlag = 0;
         b->takesDamage(damageTaken);
+        string t = side + bodyPart + punchThrown.getName() + "Hit:" + bodyPart + punchThrown.getName() + "Hit:" + 
+        side + punchThrown.getName() + "Hit:" + bodyPart +  "Hit:" + punchThrown.getName()  + "Hit:Hit"; 
+        b->setState(t);
     }
+    string t = side + bodyPart + punchThrown.getName() + ":" + bodyPart + punchThrown.getName() + ":" + 
+       side +  punchThrown.getName() + ":" +  punchThrown.getName() + ":Punch";
+    a->setState(t);
+    
     
     thrower = *a;
     reciever = *b;
+                
     
     boxers[0] = *iniA;
     boxers[1] = *iniB;
 }
 
 
-    std::string BoxingTick::toString()
+    std::string PunchThrownTick::toString()
 {
-        cout<< blockDodgeFlag << endl;
     using namespace std;
     string out = thrower.getName() + " threw a " + side + " " +
             punchThrown.getName() + " at " + reciever.getName() +
@@ -108,15 +116,14 @@ BoxingTick::BoxingTick(Boxer *a, Boxer *b) : downTime(0)
     return out;
 }
 
-int BoxingTick::getDownTime()
+int PunchThrownTick::getDownTime()
 {
     return downTime;
 }
 
-int BoxingTick::getRecieverDowns()
+int PunchThrownTick::getRecieverDowns()
 {
     return reciever.getDowns();
 }
-
 
 

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'roundTab.ui'
 **
-** Created by: Qt User Interface Compiler version 5.10.1
+** Created by: Qt User Interface Compiler version 5.11.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,11 +10,8 @@
 #define UI_ROUNDTAB_H
 
 #include <QtCore/QVariant>
-#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QVBoxLayout>
@@ -26,7 +23,7 @@ QT_BEGIN_NAMESPACE
 class Ui_roundTab
 {
 public:
-    QHBoxLayout *horizontalLayout_2;
+    QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
     QListWidget *list;
     QLabel *label;
@@ -39,9 +36,10 @@ public:
         if (roundTab->objectName().isEmpty())
             roundTab->setObjectName(QStringLiteral("roundTab"));
         roundTab->setWindowModality(Qt::WindowModal);
-        roundTab->resize(719, 579);
-        horizontalLayout_2 = new QHBoxLayout(roundTab);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        roundTab->resize(873, 579);
+        horizontalLayout = new QHBoxLayout(roundTab);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setSizeConstraint(QLayout::SetNoConstraint);
@@ -75,8 +73,9 @@ public:
         verticalLayout->setStretch(1, 1);
         verticalLayout->setStretch(2, 4);
 
-        horizontalLayout_2->addLayout(verticalLayout);
+        horizontalLayout->addLayout(verticalLayout);
 
+        horizontalLayout->setStretch(0, 2);
 
         retranslateUi(roundTab);
         QObject::connect(list, SIGNAL(currentRowChanged(int)), roundTab, SLOT(test(int)));

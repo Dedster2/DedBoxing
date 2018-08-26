@@ -16,7 +16,9 @@
 #include "boxerWidget.h"
 #include "OptionsWidget.h"
 #include "Match.h"
-#include <condition_variable>
+#include <sstream>
+#include <experimental/filesystem>
+
 
 
 mainScreen::mainScreen()
@@ -25,18 +27,44 @@ mainScreen::mainScreen()
 }
 
 void mainScreen::startMatch(int numRounds, int downCount, int roundLength)
-{    
+{   
     Boxer boxers[] = {widget.BoxerA->getBoxer(), widget.BoxerB->getBoxer()};
-    m = new Match(boxers);
-    m->startMatch(numRounds, downCount, roundLength);
-    cout << "Returned\n";
-    emit sendMatch(*m);
+    leftImages = widget.BoxerA->getImages();
+    rightImages = widget.BoxerB->getImages();
+    m.setBoxers(boxers[0], boxers[1]);
+    m.startMatch(numRounds, downCount, roundLength);
+    sendMatch(&m);
 }
 
 
 
 void mainScreen::newRound(int roundNum)
 {
-    cout << "Now starting round " << roundNum;
+}
+
+void mainScreen::setImages(string s1, string s2)
+{
+
+    istringstream is1(s1);
+    istringstream is2(s2);
+    string part = s1;
+    do 
+    {
+        if(leftImages.count(part) != 0)
+        {
+            widget.imgLeft->setPixmap(*leftImages[part]);
+            break;
+        }
+    }while (getline(is1, part, ':'));
+    
+    part = s2;
+    do 
+    {
+        if(rightImages.count(part) != 0)
+        {
+            widget.imgRight->setPixmap(*rightImages[part]); 
+            break;
+        }
+    } while (getline(is2, part, ':'));
 }
 

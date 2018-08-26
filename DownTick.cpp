@@ -29,6 +29,8 @@ DownTick::DownTick(Boxer *a, Boxer *b, int downLimit)
 {
     Boxer *downed = (a->isDown())?a:b;
     Boxer *opponent = (a->isDown())?b:a;
+    downed->setState("Downed");
+    opponent->setState("ObserveDowned");
     if(downed->getDowns() + 1 >= downLimit)
     {
         tko = true;       
@@ -41,7 +43,6 @@ DownTick::DownTick(Boxer *a, Boxer *b, int downLimit)
 
 string DownTick::toString()
 {
-    cout << downedCopy.getName();
     string s = downedCopy.getName() + " DOWN";
     return s;
 }

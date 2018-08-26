@@ -21,6 +21,8 @@
 #include "QFileDialog"
 #include "QMessageBox"
 #include <string>
+#include <experimental/filesystem>
+
 boxerWidget::boxerWidget(QWidget *parent): QGroupBox(parent)
 {
     widget.setupUi(this);
@@ -75,11 +77,10 @@ string boxerWidget::getName()
 
 Boxer boxerWidget::getBoxer()
 {
-    boxer = new Boxer();
-    boxer->setStats(widget.sbStrength->value(), widget.sbDefense->value(), 
+    boxer.setStats(widget.sbStrength->value(), widget.sbDefense->value(), 
             widget.sbHit->value(), widget.sbBlock->value(),
             widget.sbSpeed->value(), widget.leName->text().toStdString());
-    return *boxer;
+    return boxer;
 }
 
 void boxerWidget::loadBoxer()
@@ -105,7 +106,6 @@ void boxerWidget::loadBoxer()
     in.readRawData(boxerName, sizeof(char) * l);
     
     string nameString(boxerName, l);
-    cout << nameString;
     widget.sbStrength->setValue(st);
     widget.sbDefense->setValue(ft);
     widget.sbHit->setValue(tc);
@@ -159,4 +159,34 @@ void boxerWidget::update(Boxer b)
     widget.sbHit->setValue(stats[2]);
     widget.sbBlock->setValue(stats[3]);
     widget.sbSpeed->setValue(stats[4]);
+}
+
+string boxerWidget::getImageFolderName()
+{
+    return widget.leImgFolder->text().toStdString();
+}
+
+void boxerWidget::loadImages()
+{
+    using std::experimental::filesystem::path;
+    QString folderName = QFileDialog::getExistingDirectory
+            (this,"Load Image Folder", "./images/");
+    widget.leImgFolder->setText(folderName.split('/').back());
+    //clear current set of images
+    for(std::pair<string, QPixmap*> p:images)
+    {
+        delete p.second;
+    }
+    images.clear();
+    
+    //sets images
+     path pA(folderName.toStdString());
+        if(!pA.empty())
+    for(auto s: std::experimental::filesystem::directory_iterator(pA) )
+    {
+        string fName = s.path().filename().string();
+        fName = fName.substr(0, fName.find("."));
+        images[fName] = new QPixmap(QString::fromStdString(s.path().string()));
+    }
+    
 }

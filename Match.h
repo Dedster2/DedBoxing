@@ -22,11 +22,15 @@
 class Match {
 public:
     Match();
+    ~Match();
+    Match(const Match& other);
+    Match& operator=(const Match& other);
     Match(Boxer *boxers);
     void startMatch();
     void newRound(int roundNumber);
+    void setBoxers(Boxer a, Boxer b){boxers[0] = a; boxers[1] = b;}
     int getNumRounds(){return curRound;}
-    Round* getRounds(){return rounds;}
+    Round** getRounds(){return rounds;}
 
     /**
      Picks the two boxers to fight
@@ -44,8 +48,9 @@ public:
 private:
     int curRound;
     int roundTime, downLimit, numRounds;
-    Boxer *boxers;
-    Round *rounds;
+    Boxer boxers[2];
+    Round **rounds;
+    void clearRounds();
     
     //void printTime();
     void printStats();

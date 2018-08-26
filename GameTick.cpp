@@ -37,4 +37,10 @@ Boxer* GameTick::getBoxers()
     return boxers;
 }
 
+GameTick::~ GameTick()
+{
+}
+
+
+
 

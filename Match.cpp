@@ -19,11 +19,11 @@
 
 using namespace std;
 Match::Match() {
-    this->boxers = new Boxer[2];
     //seconds = 0;
     roundTime = 300;
     downLimit = 5;
     numRounds = 12;
+    curRound = 0;
 }
 Match::Match(Boxer* boxers)
 {
@@ -31,7 +31,9 @@ Match::Match(Boxer* boxers)
     roundTime = 36;
     downLimit = 5;
     numRounds = 12;
-    this->boxers = boxers;
+    curRound = 0;
+    this->boxers[0] = boxers[0];
+    this->boxers[1] = boxers[1];
 }
 
 
@@ -58,34 +60,23 @@ void Match::selectBoxer(){
 
 void Match::startMatch(int numRounds, int downCount, int roundTime)
 {
+    clearRounds();
     this->numRounds = numRounds;
     this->downLimit = downCount;
     this->roundTime = roundTime;
     startMatch();
-    cout << "Now leaving\n";
 }
 
 void Match::startMatch(){
-    cout << "Starting match between " << boxers[0].getName() << " and "
-            << boxers[1].getName()<<endl;
-    
-    for (int i = 0; i < 2; i++)
-    {
-        boxers[i].printStats();
-    }
     bool over = false;
-    float healthRecov = 15;
-    float factor = .50;
-    rounds = new Round[numRounds];
+    rounds = new Round*[numRounds];
     for(int i = 0; i < numRounds && !over; i++)
     {
         curRound = i + 1;
-        rounds[i] = *(new Round(roundTime, downLimit));
-        cout<< "ROUND " << i + 1 << "!\nKAN\nFIGHT!\n";
-        if(rounds[i].createRound(&boxers[0], &boxers[1]))
+        rounds[i] = new Round(roundTime, downLimit);
+        if(rounds[i]->createRound(&boxers[0], &boxers[1]))
             break;
     }
-    cout << "Now leaving match\n";
 }
 
 void Match::throwPunch()
@@ -109,3 +100,36 @@ void Match::printStats()
     }
 }
 
+Match::~ Match()
+{
+    for(int i = 0; i < curRound; i++)
+        delete rounds[i];
+    delete[] rounds;
+}
+
+Match::Match(const Match& other)
+{
+    for(int i = 0; i < curRound; i++)
+        delete rounds[i];
+    delete[] rounds;
+    numRounds = other.numRounds;
+    this->downLimit = other.downLimit;
+    this->roundTime = other.roundTime;
+    boxers[0] = other.boxers[0];
+    boxers[1] = other.boxers[1];
+}
+
+Match& Match::operator=(const Match& other)
+{
+
+}
+
+void Match::clearRounds()
+{
+    if (curRound != 0)
+    {
+        for(int i = 0; i < curRound; i++)
+            delete rounds[i];
+      delete[] rounds;
+    }
+}

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>1109</width>
     <height>800</height>
    </rect>
   </property>
@@ -23,36 +23,98 @@
    <string>DedBoxing</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="2,2">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1">
-        <item>
-         <widget class="boxerWidget" name="BoxerA">
-          <property name="title">
-           <string>Left</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="OptionsWidget" name="optionsPane">
-          <property name="title">
-           <string>Options</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="boxerWidget" name="BoxerB">
-          <property name="title">
-           <string>Right</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="boxerWidget" name="BoxerA">
+        <property name="title">
+         <string>Left</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="OptionsWidget" name="optionsPane">
+        <property name="title">
+         <string>Options</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="boxerWidget" name="BoxerB">
+        <property name="title">
+         <string>Right</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1,1">
+      <item>
+       <widget class="QLabel" name="imgLeft">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="lineWidth">
+         <number>3</number>
+        </property>
+        <property name="midLineWidth">
+         <number>3</number>
+        </property>
+        <property name="text">
+         <string>LeftImage</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="RoundTabs" name="Test" native="true"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="imgRight">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="lineWidth">
+         <number>3</number>
+        </property>
+        <property name="midLineWidth">
+         <number>3</number>
+        </property>
+        <property name="text">
+         <string>RightImage</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -81,7 +143,8 @@
    <header>roundtabs.h</header>
    <container>1</container>
    <slots>
-    <slot>createRounds(Match)</slot>
+    <signal>setImages(string,string)</signal>
+    <slot>createRounds(Match*)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -94,8 +157,8 @@
    <slot>startMatch(int,int,int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>598</x>
-     <y>373</y>
+     <x>526</x>
+     <y>385</y>
     </hint>
     <hint type="destinationlabel">
      <x>648</x>
@@ -104,24 +167,41 @@
    </hints>
   </connection>
   <connection>
-   <sender>mainScreen</sender>
-   <signal>sendMatch(Match)</signal>
-   <receiver>Test</receiver>
-   <slot>createRounds(Match)</slot>
+   <sender>Test</sender>
+   <signal>setImages(string,string)</signal>
+   <receiver>mainScreen</receiver>
+   <slot>setImages(string,string)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>300</x>
-     <y>9</y>
+     <x>376</x>
+     <y>442</y>
     </hint>
     <hint type="destinationlabel">
-     <x>432</x>
-     <y>504</y>
+     <x>9</x>
+     <y>347</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mainScreen</sender>
+   <signal>sendMatch(Match*)</signal>
+   <receiver>Test</receiver>
+   <slot>createRounds(Match*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>9</x>
+     <y>468</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>471</x>
+     <y>482</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <signal>sendMatch(Match)</signal>
+  <signal>sendMatch(Match*)</signal>
   <slot>startMatch(int,int,int)</slot>
+  <slot>setImages(string,string)</slot>
  </slots>
 </ui>

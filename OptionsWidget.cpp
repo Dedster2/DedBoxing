@@ -17,8 +17,6 @@ OptionsWidget::OptionsWidget(QWidget* parent): QGroupBox(parent)
 {
     widget.setupUi(this);
     setTitle("Options");
-    connect(widget.startButton, &widget.startButton->clicked, this,
-            &this->startClicked);
 };
 
 void OptionsWidget::startClicked()

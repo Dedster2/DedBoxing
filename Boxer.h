@@ -53,39 +53,41 @@ public:
     /**
      * Creates a new boxer, and saves it.
      */
-    void createNew(string name);
+    void    createNew(string name);
     
-    void throwPunch(Boxer* o);
+    void    throwPunch(Boxer* o);
     
     /** Returns true if rolls faster*/
-    bool outSpeeds(Boxer o);
+    bool    outSpeeds(Boxer o);
     
-    bool hits(Boxer o);
-    void takesDamage(float d);
+    bool    hits(Boxer o);
+    void    takesDamage(float d);
     /**
      * Re-calculates stats.
      */
-    void decay(int x);
-    void printStats();
-    void tempDamage(int damage);
-    bool isDown();
-    int down(Boxer* o);
-    bool blocks(Boxer b);
-    int calcDamage(Boxer b);
-    void regen(float x);
-    void regen();
-    void recoverHalf();
-    int getDowns(){return downs;}
-    int getBlocks(){return numBlocks;}
-    void interval(int x);
-    int getPunchThrown(){return punchesThrown;}
-    int getPunchLanded(){return punchesLanded;}
-    int getDamageTaken(){return damageTaken;}
-    int getHealthValue(){return stamina;}
-    void selectPunch();
-    bool clinchReq();
-    void getStats(int *stats);
-    Punch getPunch();
+    void    decay(int x);
+    void    printStats();
+    void    tempDamage(int damage);
+    bool    isDown();
+    int     down(Boxer* o);
+    bool    blocks(Boxer b);
+    int     calcDamage(Boxer b);
+    void    regen(float x);
+    void    regen();
+    void    recoverHalf();
+    int     getDowns(){return downs;}
+    int     getBlocks(){return numBlocks;}
+    void    interval(int x);
+    int     getPunchThrown(){return punchesThrown;}
+    int     getPunchLanded(){return punchesLanded;}
+    int     getDamageTaken(){return damageTaken;}
+    int     getHealthValue(){return stamina;}
+    void    selectPunch();
+    string  getState(){return state;}
+    void    setState(string state){this->state = state;}
+    bool    clinchReq();
+    void    getStats(int *stats);
+    Punch   getPunch();
     
     string getHealth(){return "(" + to_string((int)stamina) + "/" + to_string(hp) + ")";}
     string getName(){return name;}
@@ -96,8 +98,8 @@ private:
     
     int hp, maxStamina, numPunches, lastDamage, downs, totalDowns;
     int punchesLanded, punchesThrown, damageDealt, damageTaken, numBlocks;
-    string name;
-    Punch* punchList;
+    string name, state;
+    Punch punchList[4];
     Punch selectedPunch;
 };
 

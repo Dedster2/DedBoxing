@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'boxerWidget.ui'
 **
-** Created by: Qt User Interface Compiler version 5.10.1
+** Created by: Qt User Interface Compiler version 5.11.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,12 +10,9 @@
 #define UI_BOXERWIDGET_H
 
 #include <QtCore/QVariant>
-#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
@@ -42,6 +39,8 @@ public:
     QSpinBox *sbBlock;
     QLabel *label_4;
     QSpinBox *sbSpeed;
+    QLineEdit *leImgFolder;
+    QPushButton *pbLoadImages;
     QHBoxLayout *horizontalLayout;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
@@ -50,11 +49,9 @@ public:
     {
         if (boxerWidget->objectName().isEmpty())
             boxerWidget->setObjectName(QStringLiteral("boxerWidget"));
-        boxerWidget->resize(235, 246);
+        boxerWidget->resize(680, 1059);
         verticalLayout = new QVBoxLayout(boxerWidget);
-        verticalLayout->setSpacing(7);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(20, 20, 20, 20);
         formLayout = new QFormLayout();
         formLayout->setObjectName(QStringLiteral("formLayout"));
         label = new QLabel(boxerWidget);
@@ -131,6 +128,23 @@ public:
 
         formLayout->setWidget(5, QFormLayout::FieldRole, sbSpeed);
 
+        leImgFolder = new QLineEdit(boxerWidget);
+        leImgFolder->setObjectName(QStringLiteral("leImgFolder"));
+        leImgFolder->setEnabled(false);
+        leImgFolder->setBaseSize(QSize(0, 0));
+
+        formLayout->setWidget(6, QFormLayout::FieldRole, leImgFolder);
+
+        pbLoadImages = new QPushButton(boxerWidget);
+        pbLoadImages->setObjectName(QStringLiteral("pbLoadImages"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(pbLoadImages->sizePolicy().hasHeightForWidth());
+        pbLoadImages->setSizePolicy(sizePolicy);
+
+        formLayout->setWidget(6, QFormLayout::LabelRole, pbLoadImages);
+
 
         verticalLayout->addLayout(formLayout);
 
@@ -152,13 +166,12 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        verticalLayout->setStretch(0, 20);
-        verticalLayout->setStretch(1, 5);
 
         retranslateUi(boxerWidget);
         QObject::connect(leName, SIGNAL(textChanged(QString)), boxerWidget, SLOT(setT(QString)));
         QObject::connect(pushButton_2, SIGNAL(clicked(bool)), boxerWidget, SLOT(loadBoxer()));
         QObject::connect(pushButton, SIGNAL(clicked()), boxerWidget, SLOT(saveBoxer()));
+        QObject::connect(pbLoadImages, SIGNAL(clicked()), boxerWidget, SLOT(loadImages()));
 
         QMetaObject::connectSlotsByName(boxerWidget);
     } // setupUi
@@ -172,6 +185,7 @@ public:
         label_3->setText(QApplication::translate("boxerWidget", "Hit", nullptr));
         label_5->setText(QApplication::translate("boxerWidget", "Block", nullptr));
         label_4->setText(QApplication::translate("boxerWidget", "Speed", nullptr));
+        pbLoadImages->setText(QApplication::translate("boxerWidget", "Load Images", nullptr));
         pushButton->setText(QApplication::translate("boxerWidget", "Save Button", nullptr));
         pushButton_2->setText(QApplication::translate("boxerWidget", "Load Button", nullptr));
     } // retranslateUi

@@ -28,6 +28,8 @@
 
 IntervalTick::IntervalTick(Boxer* a, Boxer* b)
 {
+    a->setState("Stance");
+    b->setState("Stance");
     boxers[0] = *a;
     boxers[1] = *b;
     a->interval(5);

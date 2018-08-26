@@ -6,29 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>235</width>
-    <height>246</height>
+    <width>680</width>
+    <height>1059</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>boxerWidget</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="20,5">
-   <property name="spacing">
-    <number>7</number>
-   </property>
-   <property name="leftMargin">
-    <number>20</number>
-   </property>
-   <property name="topMargin">
-    <number>20</number>
-   </property>
-   <property name="rightMargin">
-    <number>20</number>
-   </property>
-   <property name="bottomMargin">
-    <number>20</number>
-   </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
@@ -138,6 +123,32 @@
        </property>
       </widget>
      </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="leImgFolder">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QPushButton" name="pbLoadImages">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Load Images</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -178,8 +189,8 @@
    <slot>setT(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>188</x>
-     <y>36</y>
+     <x>300</x>
+     <y>33</y>
     </hint>
     <hint type="destinationlabel">
      <x>227</x>
@@ -194,8 +205,8 @@
    <slot>loadBoxer()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>167</x>
-     <y>217</y>
+     <x>507</x>
+     <y>803</y>
     </hint>
     <hint type="destinationlabel">
      <x>227</x>
@@ -210,12 +221,28 @@
    <slot>saveBoxer()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>92</x>
-     <y>216</y>
+     <x>104</x>
+     <y>803</y>
     </hint>
     <hint type="destinationlabel">
      <x>13</x>
      <y>174</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbLoadImages</sender>
+   <signal>clicked()</signal>
+   <receiver>boxerWidget</receiver>
+   <slot>loadImages()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>54</x>
+     <y>201</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>676</x>
+     <y>699</y>
     </hint>
    </hints>
   </connection>
@@ -224,5 +251,6 @@
   <slot>setT(QString)</slot>
   <slot>loadBoxer()</slot>
   <slot>saveBoxer()</slot>
+  <slot>loadImages()</slot>
  </slots>
 </ui>

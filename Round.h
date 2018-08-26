@@ -14,20 +14,20 @@
 #ifndef ROUND_H
 #define ROUND_H
 
-#include "BoxingTick.h"
+#include "PunchThrownTick.h"
 
 
 class Round {
 public:
     Round(int tickLength, int downLimit);
     Round(){}
-
+    ~Round();
     /**
      * Appends the current tick to the round
      * @param tick Tick to be added to the current end of the round
      * @returns True if no more ticks can be added to this round
      */
-    bool logTick(BoxingTick *tick);
+    bool logTick(PunchThrownTick *tick);
     /**
      * Checks if the match should end due to (t)ko.
      * @param limit The number of downs needed for a TKO.
