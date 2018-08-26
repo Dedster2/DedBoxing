@@ -14,6 +14,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "boxerroundstats.h"
@@ -23,23 +24,24 @@ QT_BEGIN_NAMESPACE
 class Ui_roundTab
 {
 public:
-    QHBoxLayout *horizontalLayout;
+    QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
     QListWidget *list;
     QLabel *label;
     QHBoxLayout *layoutStats;
     boxerRoundStats *boxerStats1;
     boxerRoundStats *boxerStats2;
+    QPushButton *toggleAuto;
 
     void setupUi(QWidget *roundTab)
     {
         if (roundTab->objectName().isEmpty())
             roundTab->setObjectName(QStringLiteral("roundTab"));
         roundTab->setWindowModality(Qt::WindowModal);
-        roundTab->resize(873, 579);
-        horizontalLayout = new QHBoxLayout(roundTab);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+        roundTab->resize(801, 579);
+        verticalLayout_2 = new QVBoxLayout(roundTab);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        verticalLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setSizeConstraint(QLayout::SetNoConstraint);
@@ -73,12 +75,18 @@ public:
         verticalLayout->setStretch(1, 1);
         verticalLayout->setStretch(2, 4);
 
-        horizontalLayout->addLayout(verticalLayout);
+        verticalLayout_2->addLayout(verticalLayout);
 
-        horizontalLayout->setStretch(0, 2);
+        toggleAuto = new QPushButton(roundTab);
+        toggleAuto->setObjectName(QStringLiteral("toggleAuto"));
+
+        verticalLayout_2->addWidget(toggleAuto);
+
+        verticalLayout_2->setStretch(1, 2);
 
         retranslateUi(roundTab);
         QObject::connect(list, SIGNAL(currentRowChanged(int)), roundTab, SLOT(test(int)));
+        QObject::connect(toggleAuto, SIGNAL(clicked()), roundTab, SLOT(toggleAuto()));
 
         QMetaObject::connectSlotsByName(roundTab);
     } // setupUi
@@ -87,6 +95,7 @@ public:
     {
         roundTab->setWindowTitle(QApplication::translate("roundTab", "roundTab", nullptr));
         label->setText(QApplication::translate("roundTab", "Round 1", nullptr));
+        toggleAuto->setText(QApplication::translate("roundTab", "Enable Autoplay", nullptr));
     } // retranslateUi
 
 };

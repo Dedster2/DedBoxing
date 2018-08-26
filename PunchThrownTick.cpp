@@ -27,92 +27,31 @@ PunchThrownTick::PunchThrownTick()
 {
 }
 
-PunchThrownTick::PunchThrownTick(Boxer *a, Boxer *b) : downTime(0)
+PunchThrownTick::PunchThrownTick(Boxer *a, Boxer *b, Boxer *thrower) : downTime(0)
 {
-    Boxer *iniA = a, *iniB = b;
-    a->selectPunch();
-    b->selectPunch();
-    bodyPart = bodyPartList[rand() % 3];
-    side = sides[rand() % 2];
-    //swaps a and b if a is slower, such that a will always
-    //be the one throwing the punch
-    
-    if (!a->outSpeeds(*b))
-    {
-        Boxer *tmp = a;
-        a = b;
-        b = tmp;
-    }
+    //keeps original set of a, b to store
     blockDodgeFlag = 0;
-    punchThrown = a->getPunch();
-    damageTaken = a->calcDamage(*b);
-    damageTaken *= .75;
-    if (!a->hits(*b))
-    {
-        blockDodgeFlag = 2;
-        damageTaken = 0;
-        downTime = 0;
-        b->setState("Dodge");
-    }
-    
-    else if (b->blocks(*a))
-    {
-        blockDodgeFlag = 1;
-        damageTaken /= 2;
-        b->tempDamage(damageTaken);
-        b->setState("Block");
-    }
-    else
-    {
-        blockDodgeFlag = 0;
-        b->takesDamage(damageTaken);
-        string t = side + bodyPart + punchThrown.getName() + "Hit:" + bodyPart + punchThrown.getName() + "Hit:" + 
-        side + punchThrown.getName() + "Hit:" + bodyPart +  "Hit:" + punchThrown.getName()  + "Hit:Hit"; 
-        b->setState(t);
-    }
+    punchThrown = thrower->getPunch();
+    side = punchThrown.getSide(), bodyPart = punchThrown.getBodyPart();
+        
     string t = side + bodyPart + punchThrown.getName() + ":" + bodyPart + punchThrown.getName() + ":" + 
        side +  punchThrown.getName() + ":" +  punchThrown.getName() + ":Punch";
-    a->setState(t);
-    
-    
-    thrower = *a;
-    reciever = *b;
+    thrower->setState(t);
+
+    reciever = (thrower == a)?*b:*a;
+    this->thrower = *thrower;
                 
     
-    boxers[0] = *iniA;
-    boxers[1] = *iniB;
+    boxers[0] = *a;
+    boxers[1] = *b;
 }
 
 
-    std::string PunchThrownTick::toString()
+std::string PunchThrownTick::toString()
 {
-    using namespace std;
     string out = thrower.getName() + " threw a " + side + " " +
             punchThrown.getName() + " at " + reciever.getName() +
-            + "'s " + bodyPart + ". "  +
-            reciever.getName();
-    switch(blockDodgeFlag)
-    {
-        case 0:
-            out.append(" takes " + to_string(damageTaken) + " damage.");
-            break;
-        case 1:
-            out.append(" blocks it for " + to_string(damageTaken)
-                    + " damage.");
-            break;
-        case 2:
-            out.append(" dodges it");
-            break;
-    }
-    
-    if (downTime != 0)
-    {
-        out.append("DOWN!");
-        for (int i = 0; i < downTime; i++)
-        {
-            out.append(to_string(i + 1) + "! ");
-        }
-    }
+            + "'s " + bodyPart + ". ";
     return out;
 }
 

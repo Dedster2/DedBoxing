@@ -17,10 +17,12 @@
 #include "IntervalTick.h"
 #include "CountTick.h"
 #include "ClinchTick.h"
+#include "PunchReactTick.h"
+#include "StanceTick.h"
 
 
 Round::Round(int tickLength, int downLimit) : tickLength(tickLength), 
-        downLimit(downLimit), curTick(0), ticks(new GameTick*[tickLength * 3])
+        downLimit(downLimit), curTick(0), ticks(new GameTick*[tickLength * 5])
 {
 }
 
@@ -48,6 +50,7 @@ bool Round::createRound(Boxer* a, Boxer* b)
     int boxingTicks = 0;
     while(boxingTicks < tickLength)
     {
+        ticks[curTick++] = new StanceTick(a, b);
         if((a->clinchReq() && rand() % 100 < 20) 
             ||(b->clinchReq() && rand() % 100 < 20) )
         {
@@ -55,7 +58,14 @@ bool Round::createRound(Boxer* a, Boxer* b)
             ticks[curTick++] = new ClinchTick(a, b, low);
         }
         else
-            ticks[curTick++] = new PunchThrownTick(a, b);
+        {
+            a->selectPunch();
+            b->selectPunch();
+            Boxer *thrower = (a->outSpeeds(*b))?a:b;
+            Boxer *reciever = ((thrower != a)?a:b);
+            ticks[curTick++] = new PunchThrownTick(a, b, thrower);
+            ticks[curTick++] = new PunchReactTick(a, b, thrower, reciever);
+        }
         if (a->isDown() || b->isDown())
         {
             Boxer *downed = (a->isDown())?a:b;

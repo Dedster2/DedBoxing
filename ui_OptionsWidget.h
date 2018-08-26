@@ -15,7 +15,6 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpinBox>
-#include <QtWidgets/QSplitter>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -25,8 +24,6 @@ class Ui_OptionsWidget
 {
 public:
     QVBoxLayout *verticalLayout;
-    QSplitter *splitter;
-    QWidget *layoutWidget;
     QFormLayout *formLayout;
     QLabel *label;
     QSpinBox *sbRounds;
@@ -42,24 +39,16 @@ public:
             OptionsWidget->setObjectName(QStringLiteral("OptionsWidget"));
         OptionsWidget->resize(576, 300);
         verticalLayout = new QVBoxLayout(OptionsWidget);
-        verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(11, -1, -1, -1);
-        splitter = new QSplitter(OptionsWidget);
-        splitter->setObjectName(QStringLiteral("splitter"));
-        splitter->setOrientation(Qt::Vertical);
-        layoutWidget = new QWidget(splitter);
-        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        formLayout = new QFormLayout(layoutWidget);
+        formLayout = new QFormLayout();
         formLayout->setObjectName(QStringLiteral("formLayout"));
-        formLayout->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(layoutWidget);
+        label = new QLabel(OptionsWidget);
         label->setObjectName(QStringLiteral("label"));
         label->setBaseSize(QSize(3, 0));
 
         formLayout->setWidget(0, QFormLayout::LabelRole, label);
 
-        sbRounds = new QSpinBox(layoutWidget);
+        sbRounds = new QSpinBox(OptionsWidget);
         sbRounds->setObjectName(QStringLiteral("sbRounds"));
         sbRounds->setButtonSymbols(QAbstractSpinBox::UpDownArrows);
         sbRounds->setMinimum(1);
@@ -68,24 +57,24 @@ public:
 
         formLayout->setWidget(0, QFormLayout::FieldRole, sbRounds);
 
-        label_2 = new QLabel(layoutWidget);
+        label_2 = new QLabel(OptionsWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         formLayout->setWidget(1, QFormLayout::LabelRole, label_2);
 
-        sbDown = new QSpinBox(layoutWidget);
+        sbDown = new QSpinBox(OptionsWidget);
         sbDown->setObjectName(QStringLiteral("sbDown"));
         sbDown->setMinimum(1);
         sbDown->setValue(3);
 
         formLayout->setWidget(1, QFormLayout::FieldRole, sbDown);
 
-        label_3 = new QLabel(layoutWidget);
+        label_3 = new QLabel(OptionsWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
 
         formLayout->setWidget(2, QFormLayout::LabelRole, label_3);
 
-        sbLength = new QSpinBox(layoutWidget);
+        sbLength = new QSpinBox(OptionsWidget);
         sbLength->setObjectName(QStringLiteral("sbLength"));
         sbLength->setMinimum(1);
         sbLength->setMaximum(999);
@@ -93,12 +82,13 @@ public:
 
         formLayout->setWidget(2, QFormLayout::FieldRole, sbLength);
 
-        splitter->addWidget(layoutWidget);
-        startButton = new QPushButton(splitter);
-        startButton->setObjectName(QStringLiteral("startButton"));
-        splitter->addWidget(startButton);
 
-        verticalLayout->addWidget(splitter);
+        verticalLayout->addLayout(formLayout);
+
+        startButton = new QPushButton(OptionsWidget);
+        startButton->setObjectName(QStringLiteral("startButton"));
+
+        verticalLayout->addWidget(startButton);
 
 
         retranslateUi(OptionsWidget);

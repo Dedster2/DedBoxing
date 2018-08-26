@@ -18,6 +18,7 @@
 #include "Round.h"
 #include <string>
 #include <unordered_map>
+#include "QTimer"
 
 class roundTab : public QWidget {
     Q_OBJECT
@@ -33,12 +34,16 @@ signals:
 private:
     Ui::roundTab widget;
     Round *r;
+    bool autoOn;
+    QTimer *timer;
 
-    
+private slots:
+    void toggleAuto();
    
     
 private slots:
     void test(int i);
+    void advance();
 };
 
 

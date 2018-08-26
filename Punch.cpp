@@ -15,9 +15,19 @@
 
 #include "Punch.h"
 
+string Punch::bodyPartList[] = {"Head", "Torso", "Stomach"};
+string Punch::sides[] =  {"Left", "Right"};
+
+Punch::Punch()
+{
+}
 
 
-
+void Punch::randomize()
+{
+    bodyPart = bodyPartList[rand() % 3];
+    side = sides[rand() % 2];
+}
 
 
 

@@ -34,7 +34,7 @@ public:
      */
     PunchThrownTick();
     PunchThrownTick(Boxer a, Boxer b, Punch p, int damage, string time, int blockDodge);
-    PunchThrownTick(Boxer *a, Boxer *b);
+    PunchThrownTick(Boxer *a, Boxer *b, Boxer *thrower);
     string printTick();
     std::string toString();
     int getDownTime();
@@ -46,8 +46,7 @@ private:
     float damageTaken;
     string time;
     string bodyPart, side;
-    string bodyPartList[3] = {"Head", "Torso", "Stomach"};
-    string sides[2] = {"Left", "Right"};
+
     
     void buildStates();
 };

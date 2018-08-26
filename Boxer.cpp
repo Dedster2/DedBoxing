@@ -308,6 +308,7 @@ void Boxer::interval(int x)
 void Boxer::selectPunch()
 {
     selectedPunch = punchList[rand() % numPunches];
+    selectedPunch.randomize();
 }
 
 Punch Boxer::getPunch()

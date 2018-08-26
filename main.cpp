@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 {
     // initialize resources, if needed
     // Q_INIT_RESOURCE(resfile);
-
+    cout << "Ded was here, engel's a loser.\n";
     QApplication app(argc, argv);
    // //create and show your widgets here
     mainScreen *s = new mainScreen();

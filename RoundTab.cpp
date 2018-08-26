@@ -24,6 +24,9 @@
 roundTab::roundTab(QWidget *parent): QWidget(parent)
 {   
     widget.setupUi(this);
+    autoOn = false;
+    timer = new QTimer(this);
+    connect(timer, &timer->timeout, this, &advance);
 }
 
 void roundTab::setup(Round *r)
@@ -56,4 +59,35 @@ void roundTab::test(int i)
 
 roundTab::~ roundTab()
 {
+}
+
+void roundTab::toggleAuto()
+{
+    if(!autoOn)
+    {
+        widget.list->setEnabled(false);
+        widget.toggleAuto->setText("Disable Autoplay");
+        autoOn = true;
+        timer->start(1000);
+    }
+    else
+    {
+        widget.list->setEnabled(true);
+        widget.toggleAuto->setText("Enable Autoplay");
+        autoOn = false;
+        timer->stop();
+    }
+}
+
+void roundTab::advance()
+{
+    int curRow = widget.list->currentRow();
+    if(curRow != widget.list->count() - 1)
+    {
+        widget.list->setCurrentRow(curRow + 1);
+    }
+    else
+    {
+        emit toggleAuto();
+    }
 }
