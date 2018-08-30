@@ -28,7 +28,8 @@ public:
 signals:
     void setImages(string s1, string s2);
 public slots:
-    void createRounds(Match *m);
+    void createRounds(Match *m, bool spoilers);
+    void showNext();
 
 private:
     int numRounds;

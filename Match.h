@@ -44,6 +44,7 @@ public:
      @param roundTime How long each round will last, in ticks 
      */
     void startMatch(int numRounds, int downCount, int roundTime);
+    string toString();
     
 private:
     int curRound;
@@ -51,7 +52,6 @@ private:
     Boxer boxers[2];
     Round **rounds;
     void clearRounds();
-    
     //void printTime();
     void printStats();
     void throwPunch();

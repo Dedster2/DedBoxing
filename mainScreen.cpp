@@ -26,14 +26,16 @@ mainScreen::mainScreen()
     widget.setupUi(this); 
 }
 
-void mainScreen::startMatch(int numRounds, int downCount, int roundLength)
+void mainScreen::startMatch(int numRounds, int downCount, int roundLength,
+        bool spoilers)
 {   
     Boxer boxers[] = {widget.BoxerA->getBoxer(), widget.BoxerB->getBoxer()};
     leftImages = widget.BoxerA->getImages();
     rightImages = widget.BoxerB->getImages();
     m.setBoxers(boxers[0], boxers[1]);
     m.startMatch(numRounds, downCount, roundLength);
-    sendMatch(&m);
+    sendMatch(&m, spoilers);
+    cout << "Spoilers are now " << ((spoilers)?"ON":"OFF") << endl;
 }
 
 
@@ -68,3 +70,16 @@ void mainScreen::setImages(string s1, string s2)
     } while (getline(is2, part, ':'));
 }
 
+void mainScreen::saveMatch(QString s)
+{
+    cout << "Test";
+    QFile file(s);
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        cout<< "FUC";
+        return;   
+    }
+    QTextStream out(&file);
+    out << QString::fromStdString(m.toString());
+    file.close();
+}

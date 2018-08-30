@@ -109,14 +109,14 @@ Match::~ Match()
 
 Match::Match(const Match& other)
 {
-    for(int i = 0; i < curRound; i++)
-        delete rounds[i];
-    delete[] rounds;
-    numRounds = other.numRounds;
-    this->downLimit = other.downLimit;
-    this->roundTime = other.roundTime;
-    boxers[0] = other.boxers[0];
-    boxers[1] = other.boxers[1];
+//    for(int i = 0; i < curRound; i++)
+//        delete rounds[i];
+//    delete[] rounds;
+//    numRounds = other.numRounds;
+//    this->downLimit = other.downLimit;
+//    this->roundTime = other.roundTime;
+//    boxers[0] = other.boxers[0];
+//    boxers[1] = other.boxers[1];
 }
 
 Match& Match::operator=(const Match& other)
@@ -132,4 +132,21 @@ void Match::clearRounds()
             delete rounds[i];
       delete[] rounds;
     }
+}
+
+string Match::toString()
+{
+    string out = "Rounds: ";
+    out.append(to_string(curRound));
+    out.append("\n");
+    out.append(boxers[0].getName() + " VS " + boxers[1].getName() + "\n");
+    out.append(rounds[0]->getTick(0)->getBoxers()[0].printStats() + "\n");
+    out.append(rounds[0]->getTick(0)->getBoxers()[1].printStats() + "\n");
+    for(int i = 0; i < curRound; i++)
+    {
+        out.append("ROUND " + to_string(i + 1) + "\n");
+        out.append(rounds[i]->toString());
+    }
+    return out;
+    
 }

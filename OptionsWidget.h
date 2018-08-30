@@ -17,6 +17,7 @@
 #include <QtWidgets/qgroupbox.h>
 #include <QtWidgets/qpushbutton.h>
 #include "ui_OptionsWidget.h"
+#include "QFileDialog"
 
 class OptionsWidget: public QGroupBox
 {
@@ -25,8 +26,10 @@ class OptionsWidget: public QGroupBox
         OptionsWidget(QWidget *parent = 0);
     private slots:
         void startClicked();
+        void saveClicked();
     signals:
-        void sendOptions(int numRounds, int downCount, int roundLength);
+        void sendOptions(int numRounds, int downCount, int roundLength, bool spoilers);
+        void sendFileName(QString name);
     
     private:
         Ui::OptionsWidget widget;

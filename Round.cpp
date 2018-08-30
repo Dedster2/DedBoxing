@@ -106,3 +106,25 @@ Round::~ Round()
         delete ticks[i];
     delete[] ticks;
 }
+
+string Round::toString()
+{
+    string s("");
+    for(int i = 0; i < curTick; i++)
+    {
+        s.append(ticks[i]->toString() + "\n");
+    }
+    GameTick *last = ticks[curTick - 1];
+    for(int i = 0; i < 2; i++)
+    {
+        Boxer &cB = last->getBoxers()[i];
+        s.append("\n" + cB.getName() + "\n");
+        s.append("Punches Thrown :" + to_string(cB.getPunchThrown()) + "\n");
+        s.append("Punches Landed :" + to_string(cB.getPunchLanded()) + "\n");
+        s.append("Damage Taken: " + to_string(cB.getDamageTaken()) + "\n");
+        s.append("Knock Downs: " + to_string(cB.getDowns()) + "\n");
+        s.append("Punches Blocked:  " + to_string(cB.getBlocks()) + "\n");
+        s.append("Health: " + cB.getHealth() +  "\n\n");
+    }
+    return s;
+}

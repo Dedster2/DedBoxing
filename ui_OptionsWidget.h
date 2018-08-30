@@ -11,7 +11,9 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QFormLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpinBox>
@@ -31,7 +33,11 @@ public:
     QSpinBox *sbDown;
     QLabel *label_3;
     QSpinBox *sbLength;
+    QLabel *label_4;
+    QCheckBox *chkSpoilers;
+    QHBoxLayout *horizontalLayout;
     QPushButton *startButton;
+    QPushButton *pbSaveTxt;
 
     void setupUi(QWidget *OptionsWidget)
     {
@@ -82,17 +88,41 @@ public:
 
         formLayout->setWidget(2, QFormLayout::FieldRole, sbLength);
 
+        label_4 = new QLabel(OptionsWidget);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        formLayout->setWidget(3, QFormLayout::LabelRole, label_4);
+
+        chkSpoilers = new QCheckBox(OptionsWidget);
+        chkSpoilers->setObjectName(QStringLiteral("chkSpoilers"));
+        chkSpoilers->setBaseSize(QSize(0, 0));
+        chkSpoilers->setChecked(false);
+
+        formLayout->setWidget(3, QFormLayout::FieldRole, chkSpoilers);
+
 
         verticalLayout->addLayout(formLayout);
 
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         startButton = new QPushButton(OptionsWidget);
         startButton->setObjectName(QStringLiteral("startButton"));
 
-        verticalLayout->addWidget(startButton);
+        horizontalLayout->addWidget(startButton);
+
+        pbSaveTxt = new QPushButton(OptionsWidget);
+        pbSaveTxt->setObjectName(QStringLiteral("pbSaveTxt"));
+        pbSaveTxt->setEnabled(false);
+
+        horizontalLayout->addWidget(pbSaveTxt);
+
+
+        verticalLayout->addLayout(horizontalLayout);
 
 
         retranslateUi(OptionsWidget);
         QObject::connect(startButton, SIGNAL(clicked()), OptionsWidget, SLOT(startClicked()));
+        QObject::connect(pbSaveTxt, SIGNAL(clicked()), OptionsWidget, SLOT(saveClicked()));
 
         QMetaObject::connectSlotsByName(OptionsWidget);
     } // setupUi
@@ -104,7 +134,10 @@ public:
         sbRounds->setSuffix(QString());
         label_2->setText(QApplication::translate("OptionsWidget", "Down Limit", nullptr));
         label_3->setText(QApplication::translate("OptionsWidget", "Round Length", nullptr));
+        label_4->setText(QApplication::translate("OptionsWidget", "Spoilers", nullptr));
+        chkSpoilers->setText(QApplication::translate("OptionsWidget", "Hide Spoilers", nullptr));
         startButton->setText(QApplication::translate("OptionsWidget", "Start Match", nullptr));
+        pbSaveTxt->setText(QApplication::translate("OptionsWidget", "Save Match to .txt", nullptr));
     } // retranslateUi
 
 };

@@ -17,6 +17,7 @@
 using namespace std;
 #include <string.h>
 #include "Punch.h"
+#include <sstream>
 
 class Boxer {
 public:
@@ -66,12 +67,12 @@ public:
      * Re-calculates stats.
      */
     void    decay(int x);
-    void    printStats();
-    void    tempDamage(int damage);
+    string    printStats();
+    void    tempDamage(float damage);
     bool    isDown();
     int     down(Boxer* o);
     bool    blocks(Boxer b);
-    int     calcDamage(Boxer b);
+    float     calcDamage(Boxer b);
     void    regen(float x);
     void    regen();
     void    recoverHalf();

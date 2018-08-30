@@ -17,6 +17,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpinBox>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -39,8 +40,10 @@ public:
     QSpinBox *sbBlock;
     QLabel *label_4;
     QSpinBox *sbSpeed;
-    QLineEdit *leImgFolder;
     QPushButton *pbLoadImages;
+    QLineEdit *leImgFolder;
+    QLabel *label_7;
+    QTextBrowser *lblInfo;
     QHBoxLayout *horizontalLayout;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
@@ -49,7 +52,7 @@ public:
     {
         if (boxerWidget->objectName().isEmpty())
             boxerWidget->setObjectName(QStringLiteral("boxerWidget"));
-        boxerWidget->resize(680, 1059);
+        boxerWidget->resize(680, 871);
         verticalLayout = new QVBoxLayout(boxerWidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         formLayout = new QFormLayout();
@@ -128,13 +131,6 @@ public:
 
         formLayout->setWidget(5, QFormLayout::FieldRole, sbSpeed);
 
-        leImgFolder = new QLineEdit(boxerWidget);
-        leImgFolder->setObjectName(QStringLiteral("leImgFolder"));
-        leImgFolder->setEnabled(false);
-        leImgFolder->setBaseSize(QSize(0, 0));
-
-        formLayout->setWidget(6, QFormLayout::FieldRole, leImgFolder);
-
         pbLoadImages = new QPushButton(boxerWidget);
         pbLoadImages->setObjectName(QStringLiteral("pbLoadImages"));
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
@@ -144,6 +140,30 @@ public:
         pbLoadImages->setSizePolicy(sizePolicy);
 
         formLayout->setWidget(6, QFormLayout::LabelRole, pbLoadImages);
+
+        leImgFolder = new QLineEdit(boxerWidget);
+        leImgFolder->setObjectName(QStringLiteral("leImgFolder"));
+        leImgFolder->setEnabled(false);
+        leImgFolder->setBaseSize(QSize(0, 0));
+
+        formLayout->setWidget(6, QFormLayout::FieldRole, leImgFolder);
+
+        label_7 = new QLabel(boxerWidget);
+        label_7->setObjectName(QStringLiteral("label_7"));
+
+        formLayout->setWidget(7, QFormLayout::LabelRole, label_7);
+
+        lblInfo = new QTextBrowser(boxerWidget);
+        lblInfo->setObjectName(QStringLiteral("lblInfo"));
+        lblInfo->setEnabled(true);
+        lblInfo->setFrameShape(QFrame::Box);
+        lblInfo->setFrameShadow(QFrame::Sunken);
+        lblInfo->setLineWidth(2);
+        lblInfo->setMidLineWidth(3);
+        lblInfo->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        lblInfo->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+        formLayout->setWidget(7, QFormLayout::FieldRole, lblInfo);
 
 
         verticalLayout->addLayout(formLayout);
@@ -186,6 +206,7 @@ public:
         label_5->setText(QApplication::translate("boxerWidget", "Block", nullptr));
         label_4->setText(QApplication::translate("boxerWidget", "Speed", nullptr));
         pbLoadImages->setText(QApplication::translate("boxerWidget", "Load Images", nullptr));
+        label_7->setText(QApplication::translate("boxerWidget", "Description", nullptr));
         pushButton->setText(QApplication::translate("boxerWidget", "Save Button", nullptr));
         pushButton_2->setText(QApplication::translate("boxerWidget", "Load Button", nullptr));
     } // retranslateUi

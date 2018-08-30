@@ -26,7 +26,7 @@
 
 TKOTick::TKOTick(Boxer* a, Boxer* b)
 {
-    tkoee = (a->getDowns() > b->getDowns())?*a:*b;
+    tkoee = (a->getHealthValue() < b->getHealthValue())?*a:*b;
     boxers[0] = *a;
     boxers[1] = *b;
 }

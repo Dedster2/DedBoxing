@@ -18,6 +18,7 @@
 #include <iostream>
 #include <QtCore/qstring.h>
 #include <QtCore/qdatastream.h>
+#include "QtCore/qtextstream.h"
 #include "QFileDialog"
 #include "QMessageBox"
 #include <string>
@@ -178,15 +179,34 @@ void boxerWidget::loadImages()
         delete p.second;
     }
     images.clear();
+    widget.lblInfo->setText("");
     
     //sets images
      path pA(folderName.toStdString());
         if(!pA.empty())
     for(auto s: std::experimental::filesystem::directory_iterator(pA) )
     {
-        string fName = s.path().filename().string();
-        fName = fName.substr(0, fName.find("."));
-        images[fName] = new QPixmap(QString::fromStdString(s.path().string()));
+        if(s.path().extension().string() == ".txt")
+        {
+            cout << s.path().stem().string() << " found!" << endl;
+            QFile fa(QString::fromStdString(s.path().string()));
+            if(!fa.open(QIODevice::ReadOnly | QIODevice::Text))
+                break;
+            
+            QTextStream in(&fa);
+            while (!in.atEnd()) 
+            {
+                QString line = in.readLine();
+                cout << line.toStdString() << endl;
+                QString curS = widget.lblInfo->toPlainText();
+                widget.lblInfo->setText(curS.append(line + "\n"));
+            }
+        }
+        else
+        {
+            string fName = s.path().stem().string();
+            images[fName] = new QPixmap(QString::fromStdString(s.path().string()));
+        }
     }
     
 }

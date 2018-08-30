@@ -24,7 +24,7 @@ RoundTabs::RoundTabs(QWidget *parent) : QTabWidget(parent)
 
 
 
-void RoundTabs::createRounds(Match *m)
+void RoundTabs::createRounds(Match *m, bool spoilers)
 {
     int numRounds = m->getNumRounds();
     Round** rounds = m->getRounds();
@@ -33,17 +33,34 @@ void RoundTabs::createRounds(Match *m)
     {
        delete widget(0);
     }
+    
     for(int i = 0; i < numRounds; i++)
     {
         roundTab *t = new roundTab();
+        t->setObjectName(QString::fromStdString((to_string(i))));
         addTab(t, QString::fromStdString("ROUND " + to_string(i + 1)));
         t->setRoundNum(i + 1);
-        t->setup(rounds[i]);
+        t->setup(rounds[i], spoilers);
         connect(t, &t->setImages, this, &setImages);
+        connect(t, &t->endRound, this, &showNext);
+        if(spoilers && i != 0)
+        {
+            removeTab(1);
+        }
     }
         
 }
 
 RoundTabs::~ RoundTabs()
 {
+}
+
+void RoundTabs::showNext()
+{
+    int i  = currentIndex() + 1;
+    if(count() == i)
+    {
+        roundTab *t = findChild<roundTab *>((QString::fromStdString((to_string(i)))));
+        addTab(t, QString::fromStdString("ROUND " + to_string(i + 1)));
+    }
 }

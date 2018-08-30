@@ -17,14 +17,11 @@ Block: How often you block punch
 Speed: How often you throw and avoid punch
 
 
-Note that there's a (small) memory leak due to me not actually clearing anything, just don't create a bunch of 999 round matches without closing the app every so often.
 
 TODO:
-Better pacing
 More balance maybe
-Art + modding support someday
 Sound someday
+Images:https://pastebin.com/g0iYbEEC
 
 
-
-Current build: https://puu.sh/BdckY/b0cb09d765.zip
+Current build: https://puu.sh/BkvES/b15c4ed27d.zip

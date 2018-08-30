@@ -18,7 +18,7 @@
 #include <string.h>
 #include <cstring>
 #include <math.h>
-#define DECAYRATE .99
+#define DECAYRATE  0.997127
 
 Boxer::Boxer() {
     hp = 100;
@@ -190,7 +190,7 @@ bool Boxer::outSpeeds(Boxer o)
 bool Boxer::hits(Boxer o)
 {
     punchesThrown++;
-    if (succeedsRoll(tech * selectedPunch.getAcc(), o.speed))
+    if (succeedsRoll(tech * selectedPunch.getAcc(), o.speed / 2.0))
     {
         punchesLanded++;
         return true;
@@ -198,10 +198,10 @@ bool Boxer::hits(Boxer o)
     return false;
 }
 
-void Boxer::printStats()
+string Boxer::printStats()
 {
     int i = 0;
-    string s = "";
+    stringstream s;
     
     //This is for standard 3 kd rules, but since I made them customizable
 //    for (i = 0; i < 3 && i < downs; i++)
@@ -211,11 +211,12 @@ void Boxer::printStats()
 //    for(i; i < 3; i++)
 //        s.append("O");
     
-    cout << "Downs: " << downs << "(" << totalDowns << ") | " << name
+    s << "Downs: " << downs << "(" << totalDowns << ") | " << name
             << ": " << (int)stamina << " / "<< (int)hp << endl << "Strength: "
             << strength << " Defense: "<< fort << " Hit:" << tech 
             << " Block: " << def << " Speed: "
-            << speed << " " << curDecay <<endl;
+            << speed << " " <<endl;
+    return s.str();
 }
 
 void Boxer::takesDamage(float d)
@@ -230,7 +231,7 @@ void Boxer::decay(int x)
 {
 //    float ratio =  pow(0.997127, 100-hp); //currently set to 75% at 0 hp.
 //    curDecay = ratio;
-    curDecay += x + 3;
+    curDecay = 100 - stamina;
     float ratio = pow(DECAYRATE, curDecay);
             
     strength = max(1, (int) (mStr * ratio));
@@ -238,6 +239,7 @@ void Boxer::decay(int x)
     tech = max(1, (int) (mTech * ratio));
     def = max(1, (int) (mDef * ratio));
     speed = max(1, (int) (mSpd * ratio));
+    
 }
 bool Boxer::isDown()
 {
@@ -316,18 +318,18 @@ Punch Boxer::getPunch()
     return selectedPunch;
 }
 
-int Boxer::calcDamage(Boxer b)
+float Boxer::calcDamage(Boxer b)
 {
-    int damage = selectedPunch.getPower() * getMult(strength, b.fort);
+    float damage = selectedPunch.getPower() * getMult(strength, b.fort);
     float mult = (rand() % 1500 / 1000.0) + .5;
     damage *= mult;
-    damage = max(damage, 1);
+    damage = max(damage, (float)1);
     return damage;
 }
 
 bool Boxer::blocks(Boxer b)
 {
-    if(succeedsRoll(b.tech * b.selectedPunch.getAcc(), def))
+    if(!succeedsRoll(b.tech * b.selectedPunch.getAcc(), def))
     {
         numBlocks++;
         return true;
@@ -335,10 +337,10 @@ bool Boxer::blocks(Boxer b)
     return false;
 }
 
-void Boxer::tempDamage(int damage)
+void Boxer::tempDamage(float damage)
 {
     damageTaken += damage;
-    stamina-= damage;
+    stamina-= damage * 4;
 }
 
 bool Boxer::clinchReq()

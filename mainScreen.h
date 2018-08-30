@@ -17,6 +17,7 @@
 #include "ui_mainScreen.h"
 #include "boxerWidget.h"
 #include <unordered_map>
+#include "QTextStream"
 
 class mainScreen : public QMainWindow {
     Q_OBJECT
@@ -24,12 +25,12 @@ public:
     mainScreen();
 public slots:
     void newRound(int roundNum);
-    void startMatch(int numRounds, int downCount, int roundLength);
+    void startMatch(int numRounds, int downCount, int roundLength, bool spoilers);
     void setImages(string s1, string s2);
-
+    void saveMatch(QString s);
     
  signals:
-    void sendMatch(Match *m);
+    void sendMatch(Match *m, bool spoilers);
 private:
     Ui::mainScreen widget;
     boxerWidget *b, *b2;

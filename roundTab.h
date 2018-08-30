@@ -26,10 +26,11 @@ public:
     roundTab(QWidget *parent = 0);
     ~roundTab();
     void setRoundNum(int n);
-    void setup(Round *r);
+    void setup(Round *r, bool spoilers);
     
 signals:
     void setImages(string s1, string s2);
+    void endRound();
 
 private:
     Ui::roundTab widget;
@@ -39,6 +40,7 @@ private:
 
 private slots:
     void toggleAuto();
+    void reveal();
    
     
 private slots:

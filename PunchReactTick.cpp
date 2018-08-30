@@ -34,14 +34,16 @@ PunchReactTick::PunchReactTick(Boxer *a, Boxer *b, Boxer* thrower, Boxer* reciev
     {
         blockDodgeFlag = 2;
         damageTaken = 0;
-        reciever->setState("Dodge");
+        reciever->setState(side + bodyPart + "Dodge:" + bodyPart + "Dodge:" + 
+        side + "Dodge:Dodge");
     }
     else if (reciever->blocks(*thrower))
     {
         blockDodgeFlag = 1;
         damageTaken /= 2;
         reciever->tempDamage(damageTaken);
-        reciever->setState("Block");
+        reciever->setState(side + bodyPart + "Block:" + bodyPart + "Block:" 
+                + side + "Block:Block");
     }
     else
     {
@@ -62,10 +64,10 @@ string PunchReactTick::toString()
     switch(blockDodgeFlag)
     {
         case 0:
-            out.append(" takes " + to_string(damageTaken) + " damage.");
+            out.append(" takes " + to_string((int)damageTaken * 6) + " damage.");
             break;
         case 1:
-            out.append(" blocks it for " + to_string(damageTaken)
+            out.append(" blocks it for " + to_string((int)damageTaken * 4)
                     + " damage.");
             break;
         case 2:

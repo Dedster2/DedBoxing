@@ -29,13 +29,17 @@ roundTab::roundTab(QWidget *parent): QWidget(parent)
     connect(timer, &timer->timeout, this, &advance);
 }
 
-void roundTab::setup(Round *r)
+void roundTab::setup(Round *r, bool spoilers)
 {
     int l = r->getRoundLength();
     Boxer *Boxers = r->getBoxers();
     for (int i = 0; i < l; i++)
     {
         widget.list->addItem(QString::fromStdString(r->getTick(i)->toString()));
+        if(i != 0 && spoilers)
+        {
+            widget.list->item(i)->setHidden(true);
+        }
     }
         widget.boxerStats1->update(Boxers[0]);
         widget.boxerStats2->update(Boxers[1]);
@@ -55,6 +59,13 @@ void roundTab::test(int i)
     widget.boxerStats1->update(b[0]);
     widget.boxerStats2->update(b[1]);
     setImages(b[0].getState(), b[1].getState());
+    if(i != widget.list->count() - 1 && widget.list->item(i + 1)->isHidden())
+        widget.list->item(i + 1)->setHidden(false);
+            
+    if(i == widget.list->count() - 1)
+    {
+        emit endRound();
+    }
 }
 
 roundTab::~ roundTab()
@@ -72,10 +83,10 @@ void roundTab::toggleAuto()
     }
     else
     {
+        timer->stop();
         widget.list->setEnabled(true);
         widget.toggleAuto->setText("Enable Autoplay");
         autoOn = false;
-        timer->stop();
     }
 }
 
@@ -90,4 +101,11 @@ void roundTab::advance()
     {
         emit toggleAuto();
     }
+}
+
+void roundTab::reveal()
+{
+    for(int i = 0; i < widget.list->count(); i++)
+        widget.list->item(i)->setHidden(false);
+    emit endRound();
 }

@@ -114,21 +114,22 @@ public:
         mainScreen->setCentralWidget(centralwidget);
 
         retranslateUi(mainScreen);
-        QObject::connect(optionsPane, SIGNAL(sendOptions(int,int,int)), mainScreen, SLOT(startMatch(int,int,int)));
+        QObject::connect(optionsPane, SIGNAL(sendOptions(int,int,int,bool)), mainScreen, SLOT(startMatch(int,int,int,bool)));
         QObject::connect(Test, SIGNAL(setImages(string,string)), mainScreen, SLOT(setImages(string,string)));
-        QObject::connect(mainScreen, SIGNAL(sendMatch(Match*)), Test, SLOT(createRounds(Match*)));
+        QObject::connect(mainScreen, SIGNAL(sendMatch(Match*,bool)), Test, SLOT(createRounds(Match*,bool)));
+        QObject::connect(optionsPane, SIGNAL(sendFileName(QString)), mainScreen, SLOT(saveMatch(QString)));
 
         QMetaObject::connectSlotsByName(mainScreen);
     } // setupUi
 
     void retranslateUi(QMainWindow *mainScreen)
     {
-        mainScreen->setWindowTitle(QApplication::translate("mainScreen", "DedBoxing", nullptr));
+        mainScreen->setWindowTitle(QApplication::translate("mainScreen", "LACEUP", nullptr));
         BoxerA->setTitle(QApplication::translate("mainScreen", "Left", nullptr));
         optionsPane->setTitle(QApplication::translate("mainScreen", "Options", nullptr));
         BoxerB->setTitle(QApplication::translate("mainScreen", "Right", nullptr));
-        imgLeft->setText(QApplication::translate("mainScreen", "LeftImage", nullptr));
-        imgRight->setText(QApplication::translate("mainScreen", "RightImage", nullptr));
+        imgLeft->setText(QString());
+        imgRight->setText(QString());
     } // retranslateUi
 
 };

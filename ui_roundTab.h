@@ -31,7 +31,9 @@ public:
     QHBoxLayout *layoutStats;
     boxerRoundStats *boxerStats1;
     boxerRoundStats *boxerStats2;
+    QHBoxLayout *horizontalLayout;
     QPushButton *toggleAuto;
+    QPushButton *pbSpoilerUnhide;
 
     void setupUi(QWidget *roundTab)
     {
@@ -41,7 +43,6 @@ public:
         roundTab->resize(801, 579);
         verticalLayout_2 = new QVBoxLayout(roundTab);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout_2->setSizeConstraint(QLayout::SetDefaultConstraint);
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setSizeConstraint(QLayout::SetNoConstraint);
@@ -77,16 +78,26 @@ public:
 
         verticalLayout_2->addLayout(verticalLayout);
 
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         toggleAuto = new QPushButton(roundTab);
         toggleAuto->setObjectName(QStringLiteral("toggleAuto"));
 
-        verticalLayout_2->addWidget(toggleAuto);
+        horizontalLayout->addWidget(toggleAuto);
 
-        verticalLayout_2->setStretch(1, 2);
+        pbSpoilerUnhide = new QPushButton(roundTab);
+        pbSpoilerUnhide->setObjectName(QStringLiteral("pbSpoilerUnhide"));
+
+        horizontalLayout->addWidget(pbSpoilerUnhide);
+
+
+        verticalLayout_2->addLayout(horizontalLayout);
+
 
         retranslateUi(roundTab);
         QObject::connect(list, SIGNAL(currentRowChanged(int)), roundTab, SLOT(test(int)));
         QObject::connect(toggleAuto, SIGNAL(clicked()), roundTab, SLOT(toggleAuto()));
+        QObject::connect(pbSpoilerUnhide, SIGNAL(clicked()), roundTab, SLOT(reveal()));
 
         QMetaObject::connectSlotsByName(roundTab);
     } // setupUi
@@ -96,6 +107,7 @@ public:
         roundTab->setWindowTitle(QApplication::translate("roundTab", "roundTab", nullptr));
         label->setText(QApplication::translate("roundTab", "Round 1", nullptr));
         toggleAuto->setText(QApplication::translate("roundTab", "Enable Autoplay", nullptr));
+        pbSpoilerUnhide->setText(QApplication::translate("roundTab", "Reveal Round", nullptr));
     } // retranslateUi
 
 };

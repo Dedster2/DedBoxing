@@ -40,6 +40,7 @@ public:
     int getRoundLength(){return curTick;}
     GameTick* getTick(int n){return ticks[n];}
     Boxer *getBoxers(); //todo:get boxers from the last tick
+    string toString();
 private:
     int tickLength, downLimit, curTick;
     int numDowns();

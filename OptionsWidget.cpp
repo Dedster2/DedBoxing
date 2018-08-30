@@ -23,10 +23,12 @@ void OptionsWidget::startClicked()
 {
     
     emit sendOptions(widget.sbRounds->value(), widget.sbDown->value(), 
-            widget.sbLength->value());
+            widget.sbLength->value(), widget.chkSpoilers->isChecked());
+    widget.pbSaveTxt->setEnabled(true);
 }
 
-
-
-
-
+void OptionsWidget::saveClicked()
+{
+    QString fName = QFileDialog::getSaveFileName(this, tr("Save Match"), "", "Matches (*.txt)");
+    emit sendFileName(fName);
+}

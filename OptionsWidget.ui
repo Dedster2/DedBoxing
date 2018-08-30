@@ -85,14 +85,51 @@
        </property>
       </widget>
      </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Spoilers</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QCheckBox" name="chkSpoilers">
+       <property name="baseSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Hide Spoilers</string>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="startButton">
-     <property name="text">
-      <string>Start Match</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="startButton">
+       <property name="text">
+        <string>Start Match</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbSaveTxt">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Save Match to .txt</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
@@ -105,8 +142,8 @@
    <slot>startClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>250</x>
-     <y>249</y>
+     <x>262</x>
+     <y>234</y>
     </hint>
     <hint type="destinationlabel">
      <x>569</x>
@@ -114,8 +151,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pbSaveTxt</sender>
+   <signal>clicked()</signal>
+   <receiver>OptionsWidget</receiver>
+   <slot>saveClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>441</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>570</x>
+     <y>61</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>startClicked()</slot>
+  <slot>saveClicked()</slot>
  </slots>
 </ui>

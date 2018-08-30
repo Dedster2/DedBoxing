@@ -16,10 +16,7 @@
   <property name="windowTitle">
    <string>roundTab</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,2">
-   <property name="sizeConstraint">
-    <enum>QLayout::SetDefaultConstraint</enum>
-   </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout" stretch="10,1,4">
      <property name="sizeConstraint">
@@ -51,11 +48,22 @@
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="toggleAuto">
-     <property name="text">
-      <string>Enable Autoplay</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="toggleAuto">
+       <property name="text">
+        <string>Enable Autoplay</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbSpoilerUnhide">
+       <property name="text">
+        <string>Reveal Round</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
@@ -101,9 +109,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pbSpoilerUnhide</sender>
+   <signal>clicked()</signal>
+   <receiver>roundTab</receiver>
+   <slot>reveal()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>536</x>
+     <y>551</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>795</x>
+     <y>508</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>test(int)</slot>
   <slot>toggleAuto()</slot>
+  <slot>reveal()</slot>
  </slots>
 </ui>

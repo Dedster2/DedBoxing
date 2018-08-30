@@ -20,7 +20,7 @@
    <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
-   <string>DedBoxing</string>
+   <string>LACEUP</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -72,7 +72,7 @@
          <number>3</number>
         </property>
         <property name="text">
-         <string>LeftImage</string>
+         <string/>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -109,7 +109,7 @@
          <number>3</number>
         </property>
         <property name="text">
-         <string>RightImage</string>
+         <string/>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -134,7 +134,8 @@
    <header>optionswidget.h</header>
    <container>1</container>
    <slots>
-    <signal>sendOptions(int,int,int)</signal>
+    <signal>sendOptions(int,int,int,bool)</signal>
+    <signal>sendFileName(QString)</signal>
    </slots>
   </customwidget>
   <customwidget>
@@ -144,7 +145,7 @@
    <container>1</container>
    <slots>
     <signal>setImages(string,string)</signal>
-    <slot>createRounds(Match*)</slot>
+    <slot>createRounds(Match*,bool)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -152,9 +153,9 @@
  <connections>
   <connection>
    <sender>optionsPane</sender>
-   <signal>sendOptions(int,int,int)</signal>
+   <signal>sendOptions(int,int,int,bool)</signal>
    <receiver>mainScreen</receiver>
-   <slot>startMatch(int,int,int)</slot>
+   <slot>startMatch(int,int,int,bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>526</x>
@@ -184,9 +185,9 @@
   </connection>
   <connection>
    <sender>mainScreen</sender>
-   <signal>sendMatch(Match*)</signal>
+   <signal>sendMatch(Match*,bool)</signal>
    <receiver>Test</receiver>
-   <slot>createRounds(Match*)</slot>
+   <slot>createRounds(Match*,bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>9</x>
@@ -198,10 +199,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>optionsPane</sender>
+   <signal>sendFileName(QString)</signal>
+   <receiver>mainScreen</receiver>
+   <slot>saveMatch(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>404</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>348</x>
+     <y>4</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
-  <signal>sendMatch(Match*)</signal>
-  <slot>startMatch(int,int,int)</slot>
+  <signal>sendMatch(Match*,bool)</signal>
+  <slot>startMatch(int,int,int,bool)</slot>
   <slot>setImages(string,string)</slot>
+  <slot>saveMatch(QString)</slot>
  </slots>
 </ui>
