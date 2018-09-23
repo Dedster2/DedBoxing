@@ -174,9 +174,10 @@ void boxerWidget::loadImages()
             (this,"Load Image Folder", "./images/");
     widget.leImgFolder->setText(folderName.split('/').back());
     //clear current set of images
-    for(std::pair<string, QPixmap*> p:images)
+    for(std::pair<string, vector<QPixmap*>> p:images)
     {
-        delete p.second;
+        for(QPixmap *pm:p.second)
+          delete pm;
     }
     images.clear();
     widget.lblInfo->setText("");
@@ -222,7 +223,12 @@ void boxerWidget::addImagesFromFolder(std::experimental::filesystem::path pA)
         else
         {
             string fName = s.path().stem().string();
-            images[fName] = new QPixmap(QString::fromStdString(s.path().string()));
+            size_t pos = fName.find('-');
+            if(pos != string::npos)
+                fName = fName.substr(0, pos);
+        
+            images[fName].push_back(new QPixmap(QString::fromStdString
+                (s.path().string())));
         }
     }
 }

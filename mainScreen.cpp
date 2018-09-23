@@ -51,16 +51,18 @@ void mainScreen::newRound(int roundNum)
 void mainScreen::setImages(string s1, string s2)
 {
     cout << "Setting " << s1 << " and " << s2 << endl;
-    widget.stanceLeft->setText(QString::fromStdString(s1));
-    widget.stanceRight->setText(QString::fromStdString(s2));
     istringstream is1(s1);
     istringstream is2(s2);
     string part = s1;
     do 
     {
-        if(leftImages.count(part) != 0)
+        if(leftImages.count(part) != 0 && 
+                //Doesn't set the image if the state didn't change
+                !(widget.stanceLeft->text().compare(
+                QString::fromStdString(s1)) == 0))
         {
-            widget.imgLeft->setPixmap(*leftImages[part]);
+            int l = leftImages[part].size();
+            widget.imgLeft->setPixmap(*leftImages[part][rand() % l]);
             break;
         }
     }while (getline(is1, part, ':'));
@@ -68,12 +70,17 @@ void mainScreen::setImages(string s1, string s2)
     part = s2;
     do 
     {
-        if(rightImages.count(part) != 0)
+        if(rightImages.count(part) != 0 &&
+                !(widget.stanceRight->text().compare(
+                QString::fromStdString(s2)) == 0))
         {
-            widget.imgRight->setPixmap(*rightImages[part]); 
+            int r = rightImages[part].size();
+            widget.imgRight->setPixmap(*rightImages[part][rand() % r]); 
             break;
         }
     } while (getline(is2, part, ':'));
+    widget.stanceLeft->setText(QString::fromStdString(s1));
+    widget.stanceRight->setText(QString::fromStdString(s2));
 }
 
 void mainScreen::saveMatch(QString s)

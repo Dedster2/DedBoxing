@@ -22,6 +22,7 @@
 #include "QMenuBar"
 #include "QTextStream"
 #include "QTranslator"
+#include <QtCore/QString>
 
 class mainScreen : public QMainWindow {
     Q_OBJECT
@@ -40,8 +41,7 @@ private:
     Ui::mainScreen widget;
     boxerWidget *b, *b2;
     Match m;
-    std::unordered_map<std::string, QPixmap*> leftImages; 
-    std::unordered_map<std::string, QPixmap*> rightImages;
+    unordered_map<std::string, vector<QPixmap*> > leftImages, rightImages; 
     string lang;
     QMenu *menu;
     QActionGroup *langGroup;
