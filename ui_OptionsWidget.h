@@ -33,8 +33,10 @@ public:
     QSpinBox *sbDown;
     QLabel *label_3;
     QSpinBox *sbLength;
-    QLabel *label_4;
     QCheckBox *chkSpoilers;
+    QLabel *label_4;
+    QCheckBox *chkSounds;
+    QLabel *label_5;
     QHBoxLayout *horizontalLayout;
     QPushButton *startButton;
     QPushButton *pbSaveTxt;
@@ -88,17 +90,28 @@ public:
 
         formLayout->setWidget(2, QFormLayout::FieldRole, sbLength);
 
-        label_4 = new QLabel(OptionsWidget);
-        label_4->setObjectName(QStringLiteral("label_4"));
-
-        formLayout->setWidget(3, QFormLayout::LabelRole, label_4);
-
         chkSpoilers = new QCheckBox(OptionsWidget);
         chkSpoilers->setObjectName(QStringLiteral("chkSpoilers"));
         chkSpoilers->setBaseSize(QSize(0, 0));
         chkSpoilers->setChecked(false);
 
         formLayout->setWidget(3, QFormLayout::FieldRole, chkSpoilers);
+
+        label_4 = new QLabel(OptionsWidget);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        formLayout->setWidget(3, QFormLayout::LabelRole, label_4);
+
+        chkSounds = new QCheckBox(OptionsWidget);
+        chkSounds->setObjectName(QStringLiteral("chkSounds"));
+        chkSounds->setChecked(true);
+
+        formLayout->setWidget(4, QFormLayout::FieldRole, chkSounds);
+
+        label_5 = new QLabel(OptionsWidget);
+        label_5->setObjectName(QStringLiteral("label_5"));
+
+        formLayout->setWidget(4, QFormLayout::LabelRole, label_5);
 
 
         verticalLayout->addLayout(formLayout);
@@ -134,8 +147,10 @@ public:
         sbRounds->setSuffix(QString());
         label_2->setText(QApplication::translate("OptionsWidget", "Down Limit", nullptr));
         label_3->setText(QApplication::translate("OptionsWidget", "Round Length", nullptr));
+        chkSpoilers->setText(QString());
         label_4->setText(QApplication::translate("OptionsWidget", "Spoilers", nullptr));
-        chkSpoilers->setText(QApplication::translate("OptionsWidget", "Hide Spoilers", nullptr));
+        chkSounds->setText(QString());
+        label_5->setText(QApplication::translate("OptionsWidget", "Sounds", nullptr));
         startButton->setText(QApplication::translate("OptionsWidget", "Start Match", nullptr));
         pbSaveTxt->setText(QApplication::translate("OptionsWidget", "Save Match to .txt", nullptr));
     } // retranslateUi

@@ -26,6 +26,9 @@
 #define GAMETICK_H
 #include <string>
 #include <iostream>
+#include <QtCore/qstring.h>
+#include <QtCore/qcoreapplication.h>
+#include <QtMultimedia/qsoundeffect.h>
 
 #include "Boxer.h"
 /**
@@ -33,11 +36,15 @@
  **/
 
 class GameTick {
+    Q_DECLARE_TR_FUNCTIONS(GameTick)
 public:
     GameTick();
     virtual ~GameTick();
     virtual std::string toString();
+    virtual QString toQString();
+    virtual void playSound(QSoundEffect *qsfx);
     Boxer* getBoxers();
+    QString localizeString(string str);
 private:
     
 protected:

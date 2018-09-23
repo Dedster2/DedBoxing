@@ -47,6 +47,7 @@ public:
     void randomize();
     float getAcc(){return acc;}
     string getName(){return name;}
+    string getFullName(){return side + " " + bodyPart + " " + name;}
     
 };
 

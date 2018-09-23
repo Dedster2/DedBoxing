@@ -22,6 +22,8 @@
  * Created on August 9, 2018, 7:44 PM
  */
 
+#include <QtCore/qcoreapplication.h>
+
 #include "GameTick.h"
 
 GameTick::GameTick()
@@ -41,6 +43,34 @@ GameTick::~ GameTick()
 {
 }
 
+QString GameTick::toQString()
+{
+    return tr("");
+}
 
+QString GameTick::localizeString(string str)
+{
+    if(str == "Jab")
+        return tr("Jab");
+    if(str == "Hook")
+        return tr("Hook");
+    if(str == "Straight")
+        return tr("Straight");
+    if(str == "Upper")
+        return tr("Upper");
+    if(str == "Left")
+        return tr("Left");
+    if(str == "Right")
+        return tr("Right");
+    if(str == "Head")
+        return tr("Head");
+    if(str == "Torso")
+        return tr("Torso");
+    if(str == "Stomach")
+        return tr("Stomach");
+    return tr("Unknown string");
+}
 
-
+void GameTick::playSound(QSoundEffect *qsfx)
+{
+}

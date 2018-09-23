@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -32,9 +33,13 @@ public:
     OptionsWidget *optionsPane;
     boxerWidget *BoxerB;
     QHBoxLayout *horizontalLayout_2;
+    QVBoxLayout *verticalLayout_3;
     QLabel *imgLeft;
+    QLineEdit *stanceLeft;
     RoundTabs *Test;
+    QVBoxLayout *verticalLayout_4;
     QLabel *imgRight;
+    QLineEdit *stanceRight;
 
     void setupUi(QMainWindow *mainScreen)
     {
@@ -72,6 +77,9 @@ public:
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(-1, -1, 0, -1);
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         imgLeft = new QLabel(centralwidget);
         imgLeft->setObjectName(QStringLiteral("imgLeft"));
         QSizePolicy sizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
@@ -85,13 +93,25 @@ public:
         imgLeft->setMidLineWidth(3);
         imgLeft->setScaledContents(true);
 
-        horizontalLayout_2->addWidget(imgLeft);
+        verticalLayout_3->addWidget(imgLeft);
+
+        stanceLeft = new QLineEdit(centralwidget);
+        stanceLeft->setObjectName(QStringLiteral("stanceLeft"));
+        stanceLeft->setEnabled(true);
+        stanceLeft->setReadOnly(true);
+
+        verticalLayout_3->addWidget(stanceLeft);
+
+
+        horizontalLayout_2->addLayout(verticalLayout_3);
 
         Test = new RoundTabs(centralwidget);
         Test->setObjectName(QStringLiteral("Test"));
 
         horizontalLayout_2->addWidget(Test);
 
+        verticalLayout_4 = new QVBoxLayout();
+        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         imgRight = new QLabel(centralwidget);
         imgRight->setObjectName(QStringLiteral("imgRight"));
         sizePolicy.setHeightForWidth(imgRight->sizePolicy().hasHeightForWidth());
@@ -103,7 +123,20 @@ public:
         imgRight->setMidLineWidth(3);
         imgRight->setScaledContents(true);
 
-        horizontalLayout_2->addWidget(imgRight);
+        verticalLayout_4->addWidget(imgRight);
+
+        stanceRight = new QLineEdit(centralwidget);
+        stanceRight->setObjectName(QStringLiteral("stanceRight"));
+        stanceRight->setEnabled(true);
+        stanceRight->setBaseSize(QSize(0, 0));
+        stanceRight->setFrame(true);
+        stanceRight->setReadOnly(true);
+        stanceRight->setClearButtonEnabled(false);
+
+        verticalLayout_4->addWidget(stanceRight);
+
+
+        horizontalLayout_2->addLayout(verticalLayout_4);
 
         horizontalLayout_2->setStretch(0, 1);
         horizontalLayout_2->setStretch(1, 1);

@@ -17,7 +17,11 @@
 #include "ui_mainScreen.h"
 #include "boxerWidget.h"
 #include <unordered_map>
+#include <QtWidgets/qactiongroup.h>
+#include <QtWidgets/qmenu.h>
+#include "QMenuBar"
 #include "QTextStream"
+#include "QTranslator"
 
 class mainScreen : public QMainWindow {
     Q_OBJECT
@@ -28,6 +32,7 @@ public slots:
     void startMatch(int numRounds, int downCount, int roundLength, bool spoilers);
     void setImages(string s1, string s2);
     void saveMatch(QString s);
+
     
  signals:
     void sendMatch(Match *m, bool spoilers);
@@ -37,9 +42,17 @@ private:
     Match m;
     std::unordered_map<std::string, QPixmap*> leftImages; 
     std::unordered_map<std::string, QPixmap*> rightImages;
+    string lang;
+    QMenu *menu;
+    QActionGroup *langGroup;
+    QAction *jp, *en, *cn, *kr, *sp;
+    QTranslator *txtr;
+    void createMenus();
+    bool sound;
+
 
 private slots:
- 
+    void setLanguage(QAction* act);
 };
 
 #endif /* _MAINSCREEN_H */

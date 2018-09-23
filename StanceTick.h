@@ -34,8 +34,11 @@ public:
     string toString();
     StanceTick(const StanceTick& orig);
     virtual ~StanceTick();
-private:
+    void playSound(QSoundEffect* qsfx) override;
+    
 
+private:
+    static QSoundEffect *sfx;
 };
 
 #endif /* STANCETICK_H */

@@ -24,6 +24,7 @@
 
 #include "DownTick.h"
 #include "Boxer.h"
+#include "dedGame.h"
 
 DownTick::DownTick(Boxer *a, Boxer *b, int downLimit)
 {
@@ -47,3 +48,10 @@ string DownTick::toString()
     return s;
 }
 
+void DownTick::playSound(QSoundEffect* qsfx)
+{
+    playSoundFromString(sfx, "down.wav");
+}
+
+
+QSoundEffect* DownTick::sfx = new QSoundEffect();

@@ -24,6 +24,7 @@
 
 #include "StanceTick.h"
 #include "Boxer.h"
+#include "dedGame.h"
 
 StanceTick::StanceTick(Boxer* a, Boxer* b)
 {
@@ -47,3 +48,9 @@ string StanceTick::toString()
     return boxers[0].getName() + ":"  + boxers[0].getHealth() + " " + boxers[1].getName() +
             ":" + boxers[1].getHealth();
 }
+
+void StanceTick::playSound(QSoundEffect* qsfx)
+{
+    playSoundFromString(sfx, "fs.wav");
+}
+QSoundEffect *StanceTick::sfx = new QSoundEffect;

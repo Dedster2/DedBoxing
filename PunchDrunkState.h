@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Dedster
+ * Copyright (C) 2018 alper_000
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,23 +16,26 @@
  */
 
 /* 
- * File:   TKOTick.cpp
- * Author: Dedster
- * 
- * Created on August 12, 2018, 3:29 PM
+ * File:   PunchDrunkState.h
+ * Author: alper_000
+ *
+ * Created on September 13, 2018, 6:34 AM
  */
 
-#include "TKOTick.h"
+#ifndef PUNCHDRUNKSTATE_H
+#define PUNCHDRUNKSTATE_H
 
-TKOTick::TKOTick(Boxer* a, Boxer* b)
-{
-    tkoee = (a->isDown())?*a:*b;
-    boxers[0] = *a;
-    boxers[1] = *b;
-}
+#include "PunchThrownTick.h"
 
-std::string TKOTick::toString()
-{
-    return tkoee.getName() + " TKOd!";
-}
-    
+
+class PunchDrunkTick : public PunchThrownTick{
+public:
+    PunchDrunkTick(Boxer *a, Boxer *b, Boxer *thrower);
+    PunchDrunkTick(const PunchDrunkTick& orig);
+    virtual ~PunchDrunkTick();
+private:
+
+};
+
+#endif /* PUNCHDRUNKSTATE_H */
+

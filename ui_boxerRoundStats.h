@@ -42,7 +42,7 @@ public:
     {
         if (boxerRoundStats->objectName().isEmpty())
             boxerRoundStats->setObjectName(QStringLiteral("boxerRoundStats"));
-        boxerRoundStats->resize(400, 300);
+        boxerRoundStats->resize(558, 595);
         verticalLayout = new QVBoxLayout(boxerRoundStats);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         formLayout = new QFormLayout();

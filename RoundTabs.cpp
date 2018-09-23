@@ -36,13 +36,14 @@ void RoundTabs::createRounds(Match *m, bool spoilers)
     
     for(int i = 0; i < numRounds; i++)
     {
-        roundTab *t = new roundTab();
+        roundTab *t = new roundTab(sound);
         t->setObjectName(QString::fromStdString((to_string(i))));
-        addTab(t, QString::fromStdString("ROUND " + to_string(i + 1)));
+        addTab(t, tr("ROUND %1").arg(i+1));
         t->setRoundNum(i + 1);
         t->setup(rounds[i], spoilers);
         connect(t, &t->setImages, this, &setImages);
         connect(t, &t->endRound, this, &showNext);
+        connect(this, &this->toggleSoundTabs, t, &t->toggleSound);
         if(spoilers && i != 0)
         {
             removeTab(1);
@@ -63,4 +64,23 @@ void RoundTabs::showNext()
         roundTab *t = findChild<roundTab *>((QString::fromStdString((to_string(i)))));
         addTab(t, QString::fromStdString("ROUND " + to_string(i + 1)));
     }
+}
+
+void RoundTabs::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+        uiWidget.retranslateUi(this);
+        for(int i = 0; i < count(); i++)
+        {
+            setTabText(i, tr("ROUND %1").arg(i+1));
+        }
+      
+    } else
+        QWidget::changeEvent(event);
+}
+
+void RoundTabs::toggleSound(bool val)
+{
+    sound = val;
+    toggleSoundTabs(val);
 }

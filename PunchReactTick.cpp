@@ -23,13 +23,15 @@
  */
 
 #include "PunchReactTick.h"
+#include "dedGame.h"
 
 PunchReactTick::PunchReactTick(Boxer *a, Boxer *b, Boxer* thrower, Boxer* reciever)
 {
     Punch punchThrown = thrower->getPunch();
-    string side = thrower->getPunch().getSide(), bodyPart = thrower->getPunch().getBodyPart();
+    string side = thrower->getPunch().getSide(), 
+            bodyPart = thrower->getPunch().getBodyPart();
     damageTaken = thrower->calcDamage(*reciever);
-    damageTaken *= .75;
+    damageTaken *= (.5 + ((rand() % 10) * .05));
     if (!thrower->hits(*reciever))
     {
         blockDodgeFlag = 2;
@@ -53,6 +55,7 @@ PunchReactTick::PunchReactTick(Boxer *a, Boxer *b, Boxer* thrower, Boxer* reciev
         side + punchThrown.getName() + "Hit:" + bodyPart +  "Hit:" + punchThrown.getName()  + "Hit:Hit"; 
         reciever->setState(t);
     }
+    //thrower->setState("Stance");
     boxers[0] = *a;
     boxers[1] = *b;
     this->reciever = *reciever;
@@ -64,7 +67,7 @@ string PunchReactTick::toString()
     switch(blockDodgeFlag)
     {
         case 0:
-            out.append(" takes " + to_string((int)damageTaken * 6) + " damage.");
+            out.append(" takes " + to_string((int)damageTaken * 5) + " damage.");
             break;
         case 1:
             out.append(" blocks it for " + to_string((int)damageTaken * 4)
@@ -86,3 +89,49 @@ PunchReactTick::~ PunchReactTick()
 {
 }
 
+QString PunchReactTick::toQString()
+{
+    switch(blockDodgeFlag)
+    {
+        case 0:
+            return tr("%1  takes %2 damage.")
+                    .arg(QString::fromStdString(reciever.getName()))
+                    .arg((int)damageTaken * 5);
+            break;
+        case 1:
+            return tr("%1 blocks it for %2 damage.")
+                    .arg(QString::fromStdString(reciever.getName()))
+                    .arg((int)damageTaken * 4);
+            break;
+        case 2:
+            return tr("%1 dodges it")
+            .arg(QString::fromStdString(reciever.getName()));
+            break;
+    }
+}
+
+bool PunchReactTick::wasHit()
+{
+    return (blockDodgeFlag != 2);
+}
+
+void PunchReactTick::playSound(QSoundEffect *qsfx)
+{
+    switch (blockDodgeFlag)
+    {
+        case 0:
+            playSoundFromString(hitSfx, "hit.wav");
+            break;
+        case 1:
+            playSoundFromString(blockSfx, "block.wav");
+            break;
+        case 2:
+            playSoundFromString(dodgeSfx, "miss.wav");
+            break;
+    }
+}
+
+
+QSoundEffect *PunchReactTick::blockSfx = new QSoundEffect();
+QSoundEffect *PunchReactTick::dodgeSfx = new QSoundEffect();
+QSoundEffect *PunchReactTick::hitSfx = new QSoundEffect();

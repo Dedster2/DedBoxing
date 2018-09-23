@@ -33,9 +33,12 @@ public:
     DownTick(Boxer *a, Boxer *b, int downLimit);
     string toString();
     bool ko = false, tko = false;
+    void playSound(QSoundEffect* qsfx) override;
+
 private:
     Boxer downedCopy;
     int timeDown;
+    static QSoundEffect *sfx;
 };
 
 #endif /* DownTick_H */

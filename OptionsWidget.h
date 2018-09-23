@@ -30,9 +30,11 @@ class OptionsWidget: public QGroupBox
     signals:
         void sendOptions(int numRounds, int downCount, int roundLength, bool spoilers);
         void sendFileName(QString name);
+        void toggleSound(bool val);
     
     private:
         Ui::OptionsWidget widget;
+        void changeEvent(QEvent* event);
             
 };
 #endif /* OPTIONSWIDGET_H */

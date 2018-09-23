@@ -17,6 +17,7 @@ OptionsWidget::OptionsWidget(QWidget* parent): QGroupBox(parent)
 {
     widget.setupUi(this);
     setTitle("Options");
+    connect(widget.chkSounds, &QCheckBox::toggled, this, &toggleSound);
 };
 
 void OptionsWidget::startClicked()
@@ -32,3 +33,13 @@ void OptionsWidget::saveClicked()
     QString fName = QFileDialog::getSaveFileName(this, tr("Save Match"), "", "Matches (*.txt)");
     emit sendFileName(fName);
 }
+
+
+void OptionsWidget::changeEvent(QEvent* event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+        widget.retranslateUi(this);
+    } else
+        QWidget::changeEvent(event);
+}
+

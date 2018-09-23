@@ -84,11 +84,12 @@ public:
     int     getDamageTaken(){return damageTaken;}
     int     getHealthValue(){return stamina;}
     void    selectPunch();
-    string  getState(){return state;}
+    string  getState();
     void    setState(string state){this->state = state;}
     bool    clinchReq();
     void    getStats(int *stats);
     Punch   getPunch();
+    void    getRoundStats(int *array, int scope);
     
     string getHealth(){return "(" + to_string((int)stamina) + "/" + to_string(hp) + ")";}
     string getName(){return name;}
@@ -97,11 +98,14 @@ private:
     float strength, fort, tech, def, mStr, mFort, mTech, mDef, speed, mSpd,
             stamina, curDecay;
     
-    int hp, maxStamina, numPunches, lastDamage, downs, totalDowns;
-    int punchesLanded, punchesThrown, damageDealt, damageTaken, numBlocks;
+    int hp, maxStamina, numPunches, lastDamage, downs;
+    int punchesLanded, punchesThrown, damageDealt, damageTaken, numBlocks, 
+        punchesLandedT, punchesThrownT, damageDealtT, damageTakenT, numBlocksT, downsT;
     string name, state;
     Punch punchList[4];
     Punch selectedPunch;
+    bool tired();
+
 };
 
 #endif /* BOXER_H */

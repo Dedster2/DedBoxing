@@ -17,6 +17,7 @@
 #include "ui_boxerRoundStats.h"
 #include "Boxer.h"
 #include <string>
+#include <iostream>
 
 class boxerRoundStats : public QWidget {
     Q_OBJECT
@@ -26,6 +27,11 @@ public:
     virtual ~boxerRoundStats();
 private:
     Ui::boxerRoundStats widget;
+    int scope;
+    Boxer b;
+    void changeEvent(QEvent *event);
+private slots:
+    void switchStats(int id);
 };
 
 #endif /* _BOXERROUNDSTATS_H */

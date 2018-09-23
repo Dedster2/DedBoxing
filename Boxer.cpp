@@ -26,8 +26,10 @@ Boxer::Boxer() {
     maxStamina = 100;
     downs = 0;
     curDecay = 0;
-    totalDowns = 0;
-    punchesLanded = punchesThrown = damageDealt = damageTaken = numBlocks = 0;
+    downsT = 0;
+    punchesLanded = punchesThrown = damageDealt = damageTaken = numBlocks =
+            punchesLandedT = punchesThrownT = damageDealtT = damageTakenT = 
+            numBlocksT = 0;
     numPunches = 4;
     punchList[0] = Punch(.9, 2, 1, "Jab");
     punchList[1] = Punch(.75, 4, 2, "Straight");
@@ -182,17 +184,21 @@ void Boxer::throwPunch(Boxer* o) {
 
 bool Boxer::outSpeeds(Boxer o)
 {
+    if (isDown())
+        return false;
     return succeedsRoll(speed * selectedPunch.getAcc(), 
-            o.speed * o.selectedPunch.getAcc() );
+            o.speed * o.selectedPunch.getAcc() ) || o.isDown();
 }
 
 
 bool Boxer::hits(Boxer o)
 {
     punchesThrown++;
-    if (succeedsRoll(tech * selectedPunch.getAcc(), o.speed / 2.0))
+    punchesThrownT++;
+    if (succeedsRoll(tech * selectedPunch.getAcc(), o.speed / 2.0) || o.isDown())
     {
         punchesLanded++;
+        punchesLandedT++;
         return true;
     }
     return false;
@@ -211,7 +217,7 @@ string Boxer::printStats()
 //    for(i; i < 3; i++)
 //        s.append("O");
     
-    s << "Downs: " << downs << "(" << totalDowns << ") | " << name
+    s << "Downs: " << downs << "(" << downsT << ") | " << name
             << ": " << (int)stamina << " / "<< (int)hp << endl << "Strength: "
             << strength << " Defense: "<< fort << " Hit:" << tech 
             << " Block: " << def << " Speed: "
@@ -222,6 +228,7 @@ string Boxer::printStats()
 void Boxer::takesDamage(float d)
 {
     damageTaken += d;
+    damageTakenT += d;
     hp = max(0.0, hp - d + 0.0);
     stamina -= 5 * d;
     decay(d);
@@ -232,7 +239,7 @@ void Boxer::decay(int x)
 //    float ratio =  pow(0.997127, 100-hp); //currently set to 75% at 0 hp.
 //    curDecay = ratio;
     curDecay = 100 - stamina;
-    float ratio = pow(DECAYRATE, curDecay);
+    float ratio = 1; //pow(DECAYRATE, curDecay);
             
     strength = max(1, (int) (mStr * ratio));
     fort = max(1, (int) (mFort * ratio));
@@ -249,7 +256,7 @@ bool Boxer::isDown()
 int Boxer::down(Boxer* o)
 {
     downs++;
-    totalDowns++;
+    downsT++;
     int i;
     int curHealed = 0;
     int target = max(3, 7 - hp / 10) + stamina / -15;
@@ -274,7 +281,7 @@ int Boxer::down(Boxer* o)
 void Boxer::regen()
 {
     stamina = min(stamina + 2.0, hp + 0.0);
-    float ratio = pow(DECAYRATE, curDecay);
+    float ratio = 1; //ow(DECAYRATE, curDecay);
             
     strength = max(1, (int) (mStr * ratio));
     fort = max(1, (int) (mFort * ratio));
@@ -329,9 +336,10 @@ float Boxer::calcDamage(Boxer b)
 
 bool Boxer::blocks(Boxer b)
 {
-    if(!succeedsRoll(b.tech * b.selectedPunch.getAcc(), def))
+    if(!succeedsRoll(b.tech * b.selectedPunch.getAcc(), def) && !isDown())
     {
         numBlocks++;
+        numBlocksT++;
         return true;
     }
     return false;
@@ -340,6 +348,7 @@ bool Boxer::blocks(Boxer b)
 void Boxer::tempDamage(float damage)
 {
     damageTaken += damage;
+    damageTakenT += damage;
     stamina-= damage * 4;
 }
 
@@ -357,3 +366,49 @@ void Boxer::getStats(int *stats)
     stats[4] = speed;
 }
 
+void Boxer::getRoundStats(int* array, int scope)
+{
+    switch (scope)
+    {
+        case 0:
+        {
+            array[0] = damageTaken;
+            array[1] = punchesLanded;
+            array[2] = punchesThrown;
+            array[3] = downs;
+            array[4] = numBlocks;
+            array[5] = stamina;
+            break;
+        }
+        default:
+            array[0] = damageTakenT;
+            array[1] = punchesLandedT;
+            array[2] = punchesThrownT;
+            array[3] = downsT;
+            array[4] = numBlocksT;
+            array[5] = stamina;
+    }
+}
+
+string Boxer::getState()
+{
+    if(tired())
+    {
+        istringstream is1(state);
+        string part;
+        string out;
+        getline(is1, part, ':');
+        do
+        {
+            out.append(part + "Tired:" + part +":");
+        }
+        while (getline(is1, part, ':'));
+        return out;
+    }
+    return state;
+}
+
+bool Boxer::tired()
+{
+    return (stamina <= 33 || downs > 1);
+}

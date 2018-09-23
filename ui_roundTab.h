@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
@@ -34,6 +35,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QPushButton *toggleAuto;
     QPushButton *pbSpoilerUnhide;
+    QCheckBox *statScope;
 
     void setupUi(QWidget *roundTab)
     {
@@ -93,11 +95,21 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout);
 
+        statScope = new QCheckBox(roundTab);
+        statScope->setObjectName(QStringLiteral("statScope"));
+        statScope->setLayoutDirection(Qt::LeftToRight);
+        statScope->setAutoFillBackground(false);
+        statScope->setTristate(false);
+
+        verticalLayout_2->addWidget(statScope);
+
 
         retranslateUi(roundTab);
         QObject::connect(list, SIGNAL(currentRowChanged(int)), roundTab, SLOT(test(int)));
         QObject::connect(toggleAuto, SIGNAL(clicked()), roundTab, SLOT(toggleAuto()));
         QObject::connect(pbSpoilerUnhide, SIGNAL(clicked()), roundTab, SLOT(reveal()));
+        QObject::connect(statScope, SIGNAL(stateChanged(int)), boxerStats1, SLOT(switchStats(int)));
+        QObject::connect(statScope, SIGNAL(stateChanged(int)), boxerStats2, SLOT(switchStats(int)));
 
         QMetaObject::connectSlotsByName(roundTab);
     } // setupUi
@@ -108,6 +120,7 @@ public:
         label->setText(QApplication::translate("roundTab", "Round 1", nullptr));
         toggleAuto->setText(QApplication::translate("roundTab", "Enable Autoplay", nullptr));
         pbSpoilerUnhide->setText(QApplication::translate("roundTab", "Reveal Round", nullptr));
+        statScope->setText(QApplication::translate("roundTab", "Show stats since match start", nullptr));
     } // retranslateUi
 
 };

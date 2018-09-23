@@ -24,12 +24,13 @@
 
 #include "IntervalTick.h"
 #include "Boxer.h"
+#include "dedGame.h"
 
 
 IntervalTick::IntervalTick(Boxer* a, Boxer* b)
 {
-    a->setState("Stance");
-    b->setState("Stance");
+    a->setState("Corner");
+    b->setState("Corner");
     boxers[0] = *a;
     boxers[1] = *b;
     a->interval(5);
@@ -41,3 +42,10 @@ string IntervalTick::toString()
     return "KAN";
 }
 
+void IntervalTick::playSound(QSoundEffect *qsfx)
+{
+    playSoundFromString(sfx, "bell.wav");
+}
+
+
+QSoundEffect* IntervalTick::sfx = new QSoundEffect();

@@ -22,6 +22,7 @@
 
 class PunchThrownTick: public GameTick
 {
+    Q_DECLARE_TR_FUNCTIONS(GameTick)
 public:
     /**
      * 
@@ -37,8 +38,11 @@ public:
     PunchThrownTick(Boxer *a, Boxer *b, Boxer *thrower);
     string printTick();
     std::string toString();
+    QString toQString();
     int getDownTime();
     int getRecieverDowns();
+    void playSound(QSoundEffect* qsfx);
+
 private:
     Boxer thrower, reciever;
     Punch punchThrown;
@@ -46,7 +50,7 @@ private:
     float damageTaken;
     string time;
     string bodyPart, side;
-
+    static QSoundEffect *sfx;
     
     void buildStates();
 };

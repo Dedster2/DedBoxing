@@ -24,6 +24,7 @@ class roundTab : public QWidget {
     Q_OBJECT
 public:
     roundTab(QWidget *parent = 0);
+    roundTab(bool sound, QWidget *parent = 0);
     ~roundTab();
     void setRoundNum(int n);
     void setup(Round *r, bool spoilers);
@@ -32,11 +33,16 @@ signals:
     void setImages(string s1, string s2);
     void endRound();
 
+public slots:
+    void toggleSound(bool val);
 private:
     Ui::roundTab widget;
     Round *r;
     bool autoOn;
     QTimer *timer;
+    void changeEvent(QEvent *event);
+    void playSound(GameTick *gt);
+    bool sound;
 
 private slots:
     void toggleAuto();

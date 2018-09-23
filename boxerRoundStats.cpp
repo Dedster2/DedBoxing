@@ -18,25 +18,29 @@
 boxerRoundStats::boxerRoundStats(QWidget *parent):QWidget(parent)
 {
     widget.setupUi(this);
+    scope = 0;
 }
 
 void boxerRoundStats::update(Boxer b)
 {
-    widget.leDamageTake->setText
-    (QString::fromStdString(to_string(b.getDamageTaken())));
-    
-    widget.lePunchLand->setText
-    (QString::fromStdString(to_string(b.getPunchLanded())));
-    
-    widget.lePunchThrown->setText
-    (QString::fromStdString(to_string(b.getPunchThrown())));
-    
-    widget.leDowns->setText
-    (QString::fromStdString(to_string(b.getDowns())));
-    widget.leBlocked->setText
-    (QString::fromStdString(to_string(b.getBlocks())));
-    int health = max(0, b.getHealthValue());
-    widget.pbHealth->setValue(health);
+    this->b = b;
+    int stats[6];
+    b.getRoundStats(stats, scope);
+
+            widget.leDamageTake->setText
+        (QString::fromStdString(to_string(stats[0])));
+
+            widget.lePunchLand->setText
+        (QString::fromStdString(to_string(stats[1])));
+
+            widget.lePunchThrown->setText
+        (QString::fromStdString(to_string(stats[2])));
+
+            widget.leDowns->setText
+        (QString::fromStdString(to_string(stats[3])));
+            widget.leBlocked->setText
+        (QString::fromStdString(to_string(stats[4])));
+            widget.pbHealth->setValue(max(0,stats[5]));
     //widget.stats->update(b);
 }
 
@@ -44,4 +48,18 @@ void boxerRoundStats::update(Boxer b)
 
 boxerRoundStats::~ boxerRoundStats()
 {
+}
+
+void boxerRoundStats::switchStats(int id)
+{
+    scope = id;
+    update(b);
+}
+
+void boxerRoundStats::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+        widget.retranslateUi(this);
+    } else
+        QWidget::changeEvent(event);
 }

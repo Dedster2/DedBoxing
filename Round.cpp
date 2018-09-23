@@ -19,10 +19,12 @@
 #include "ClinchTick.h"
 #include "PunchReactTick.h"
 #include "StanceTick.h"
+#include "KOTick.h"
+#include "PunchDrunkState.h"
 
 
 Round::Round(int tickLength, int downLimit) : tickLength(tickLength), 
-        downLimit(downLimit), curTick(0), ticks(new GameTick*[tickLength * 5])
+        downLimit(downLimit), curTick(0), ticks(new GameTick*[999999])
 {
 }
 
@@ -48,50 +50,62 @@ void Round::printRound()
 bool Round::createRound(Boxer* a, Boxer* b)
 {
     int boxingTicks = 0;
+    int i = 5;
     while(boxingTicks < tickLength)
     {
-        ticks[curTick++] = new StanceTick(a, b);
-        if((a->clinchReq() && rand() % 100 < 20) 
-            ||(b->clinchReq() && rand() % 100 < 20) )
+        if(!(i < 5 && rand() % (i+1) == 0))
         {
-            Boxer* low = (a->getHealthValue() < b->getHealthValue())?a:b;
-            ticks[curTick++] = new ClinchTick(a, b, low);
-        }
-        else
-        {
-            a->selectPunch();
-            b->selectPunch();
-            Boxer *thrower = (a->outSpeeds(*b))?a:b;
-            Boxer *reciever = ((thrower != a)?a:b);
-            ticks[curTick++] = new PunchThrownTick(a, b, thrower);
-            ticks[curTick++] = new PunchReactTick(a, b, thrower, reciever);
-        }
-        if (a->isDown() || b->isDown())
-        {
-            Boxer *downed = (a->isDown())?a:b;
-            Boxer *opponent = (a->isDown())?b:a;
-            DownTick *downTick;
-             ticks[curTick++] = downTick =  new DownTick(a, b, downLimit);
-            //if (downTick.ko())
+            if (a->isDown() || b->isDown())
             {
-                //ticks[curTick++] = new KOTick(a, b);
-                //return;
-            }
-            if (downTick->tko)
-            {
-                ticks[curTick++] = new TKOTick(a,b);
-                return true;
-            }
-            else
-            {
-                CountTick *ct = new CountTick(a, b, downed, opponent);
-                ticks[curTick++] = ct;
-                if(ct->ko())
+                i = 5;
+                Boxer *downed = (a->isDown())?a:b;
+                Boxer *opponent = (a->isDown())?b:a;
+                DownTick *downTick;
+                 ticks[curTick++] = downTick =  new DownTick(a, b, downLimit);
+                //if (downTick.ko())
                 {
+                    //ticks[curTick++] = new KOTick(a, b);
+                    //return;
+                }
+                if (downTick->tko)
+                {
+                    ticks[curTick++] = new TKOTick(a,b);
                     return true;
                 }
+                else
+                {
+                    CountTick *ct = new CountTick(a, b, downed, opponent);
+                    ticks[curTick++] = ct;
+                    if(ct->ko())
+                    {
+                        ticks[curTick++] = new KOTick(a,b, downed, opponent);
+                        return true;
+                    }
+                }
             }
+            ticks[curTick++] = new StanceTick(a, b);
+            i = 1;
         }
+        a->selectPunch();
+        b->selectPunch();
+        Boxer *thrower = (a->outSpeeds(*b))?a:b;
+        Boxer *reciever = ((thrower != a)?a:b);
+        bool wasHit = false;
+        ticks[curTick++] = new PunchThrownTick(a, b, thrower);
+        PunchReactTick *pr = new PunchReactTick(a, b, thrower, reciever);
+        ticks[curTick++] = pr;
+        wasHit = pr->wasHit();
+        i++;
+//        while(wasHit && i < 4 && rand() % (i + 1) == 0)
+//        {
+//            thrower->selectPunch();
+//            ticks[curTick++] = (reciever->isDown())?
+//                (new PunchDrunkTick(a, b, thrower)):
+//                 (new PunchThrownTick(a, b, thrower));
+//            PunchReactTick *pr = new PunchReactTick(a, b, thrower, reciever);
+//            ticks[curTick++] = pr;
+//            wasHit = pr->wasHit();
+//        }
         a->regen();
         b->regen();
         boxingTicks++;   

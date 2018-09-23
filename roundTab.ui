@@ -65,6 +65,22 @@
      </item>
     </layout>
    </item>
+   <item>
+    <widget class="QCheckBox" name="statScope">
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Show stats since match start</string>
+     </property>
+     <property name="tristate">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -73,6 +89,9 @@
    <extends>QWidget</extends>
    <header>boxerroundstats.h</header>
    <container>1</container>
+   <slots>
+    <slot>switchStats(int)</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -100,8 +119,8 @@
    <slot>toggleAuto()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>81</x>
-     <y>555</y>
+     <x>93</x>
+     <y>539</y>
     </hint>
     <hint type="destinationlabel">
      <x>27</x>
@@ -116,12 +135,44 @@
    <slot>reveal()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>536</x>
-     <y>551</y>
+     <x>788</x>
+     <y>539</y>
     </hint>
     <hint type="destinationlabel">
      <x>795</x>
      <y>508</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>statScope</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>boxerStats1</receiver>
+   <slot>switchStats(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>148</x>
+     <y>558</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>184</x>
+     <y>422</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>statScope</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>boxerStats2</receiver>
+   <slot>switchStats(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>399</x>
+     <y>559</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>504</x>
+     <y>458</y>
     </hint>
    </hints>
   </connection>

@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <math.h>
+#include <QtMultimedia/qsoundeffect.h>
 
 using namespace std;
 
@@ -42,6 +43,8 @@ bool confirmMessage(string m);
  */
 float getMult(float a, float b);
 
+/**Plays a soundeffect with filename fName*/
+void playSoundFromString(QSoundEffect *qsfx, string fName);
 
 #endif /* DEDGAME_H */
 

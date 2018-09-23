@@ -183,12 +183,30 @@ void boxerWidget::loadImages()
     
     //sets images
      path pA(folderName.toStdString());
-        if(!pA.empty())
-    for(auto s: std::experimental::filesystem::directory_iterator(pA) )
+     addImagesFromFolder(pA);
+    
+}
+
+void boxerWidget::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+        widget.retranslateUi(this);
+    } else
+        QWidget::changeEvent(event);
+}
+
+void boxerWidget::addImagesFromFolder(std::experimental::filesystem::path pA)
+{
+    using std::experimental::filesystem::path;
+    using std::experimental::filesystem::directory_entry;
+    if(!pA.empty())
+    for(std::experimental::filesystem::directory_entry s
+            : std::experimental::filesystem::directory_iterator(pA) )
     {
-        if(s.path().extension().string() == ".txt")
+        if(std::experimental::filesystem::is_directory(s.status()))
+            addImagesFromFolder(s);
+        else if(s.path().extension().string() == ".txt")
         {
-            cout << s.path().stem().string() << " found!" << endl;
             QFile fa(QString::fromStdString(s.path().string()));
             if(!fa.open(QIODevice::ReadOnly | QIODevice::Text))
                 break;
@@ -197,7 +215,6 @@ void boxerWidget::loadImages()
             while (!in.atEnd()) 
             {
                 QString line = in.readLine();
-                cout << line.toStdString() << endl;
                 QString curS = widget.lblInfo->toPlainText();
                 widget.lblInfo->setText(curS.append(line + "\n"));
             }
@@ -208,5 +225,4 @@ void boxerWidget::loadImages()
             images[fName] = new QPixmap(QString::fromStdString(s.path().string()));
         }
     }
-    
 }

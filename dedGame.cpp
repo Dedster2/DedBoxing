@@ -64,3 +64,15 @@ bool confirmMessage(string m)
         }   
     return true;
 }
+
+
+void playSoundFromString(QSoundEffect *qsfx, string fName)
+{
+        if(qsfx->status() != qsfx->Ready)
+    {
+        qsfx->setSource(QUrl::fromLocalFile(QString::fromStdString(fName)));
+        qsfx->setVolume(1);
+    }
+    qsfx->play();
+    cout << "Playing sound" << fName << endl;
+}

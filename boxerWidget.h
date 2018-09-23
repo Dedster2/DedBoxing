@@ -17,11 +17,13 @@
 #include <stdlib.h>
 #include "QGroupBox"
 #include <unordered_map>
+#include <experimental/filesystem>
 
 #include "Boxer.h"
 #include "ui_boxerWidget.h"
 
 using std::string;
+using std::experimental::filesystem::path;
 
 class boxerWidget : public QGroupBox
 {
@@ -44,6 +46,9 @@ private:
     Ui::boxerWidget widget;
     Boxer boxer;
     unordered_map<string, QPixmap*> images;
+    void changeEvent(QEvent *event);
+    void addImagesFromFolder(std::experimental::filesystem::path pA);
+    
 private slots:
     void loadImages();
 };

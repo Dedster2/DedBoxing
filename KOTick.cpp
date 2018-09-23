@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Dedster
+ * Copyright (C) 2018 alper_000
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,23 +16,36 @@
  */
 
 /* 
- * File:   TKOTick.cpp
- * Author: Dedster
+ * File:   KOTick.cpp
+ * Author: alper_000
  * 
- * Created on August 12, 2018, 3:29 PM
+ * Created on September 3, 2018, 7:34 PM
  */
 
-#include "TKOTick.h"
+#include "KOTick.h"
 
-TKOTick::TKOTick(Boxer* a, Boxer* b)
+
+KOTick::KOTick(Boxer* a, Boxer* b, Boxer* downed, Boxer* opponent)
 {
-    tkoee = (a->isDown())?*a:*b;
+    downed->setState("KO:Downed");
+    opponent->setState("WinKO:Win:ObserveDowned");
     boxers[0] = *a;
     boxers[1] = *b;
+    winner = *opponent;
+    loser = *downed;
 }
 
-std::string TKOTick::toString()
+
+KOTick::KOTick(const KOTick& orig)
 {
-    return tkoee.getName() + " TKOd!";
 }
-    
+
+KOTick::~ KOTick()
+{
+}
+
+string KOTick::toString()
+{
+    return loser.getName() + " was knocked out by " + winner.getName() + "'s " +
+            winner.getPunch().getFullName() + ".";
+}

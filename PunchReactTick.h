@@ -30,16 +30,21 @@
 
 
 class PunchReactTick : public GameTick {
+    Q_DECLARE_TR_FUNCTIONS(GameTick)
 public:
     PunchReactTick(Boxer *a, Boxer *b, Boxer *thrower, Boxer *reciever);
     PunchReactTick(const PunchReactTick& orig);
     string toString();
+    QString toQString();
     virtual ~PunchReactTick();
+    bool wasHit();
+    void playSound(QSoundEffect *qsfx);
+    static QSoundEffect *hitSfx, *dodgeSfx, *blockSfx;
 private:
     int blockDodgeFlag;
     float damageTaken;
     Boxer reciever;
-
+    
 };
 
 #endif /* PUNCHREACTTICK_H */

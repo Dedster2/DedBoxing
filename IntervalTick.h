@@ -33,6 +33,8 @@ class IntervalTick : public GameTick {
 public:
     IntervalTick(Boxer *a, Boxer *b);
     string toString();
+    virtual void playSound(QSoundEffect *qsfx);
+    static QSoundEffect *sfx;
 
 private:
 

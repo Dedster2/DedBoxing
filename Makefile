@@ -48,13 +48,16 @@
 MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
-
+TEMPRO=.tmepqt.pro
 
 # build
 build: .build-post
 
-.build-pre:
-# Add your pre 'build' code here...
+.build-pre: nbproject/qt-${CONF}.pro
+	cat nbproject/qt-${CONF}.pro > ${TEMPRO}
+	lupdate ${TEMPRO}
+	lrelease ${TEMPRO}
+	rm ${TEMPRO}
 
 .build-post: .build-impl
 # Add your post 'build' code here...

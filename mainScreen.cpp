@@ -23,7 +23,12 @@
 
 mainScreen::mainScreen()
 { 
+    
     widget.setupUi(this); 
+    txtr = new QTranslator(this);
+    connect(widget.optionsPane, &widget.optionsPane->toggleSound, widget.Test,
+            &widget.Test->toggleSound);
+    createMenus();
 }
 
 void mainScreen::startMatch(int numRounds, int downCount, int roundLength,
@@ -35,7 +40,6 @@ void mainScreen::startMatch(int numRounds, int downCount, int roundLength,
     m.setBoxers(boxers[0], boxers[1]);
     m.startMatch(numRounds, downCount, roundLength);
     sendMatch(&m, spoilers);
-    cout << "Spoilers are now " << ((spoilers)?"ON":"OFF") << endl;
 }
 
 
@@ -46,7 +50,9 @@ void mainScreen::newRound(int roundNum)
 
 void mainScreen::setImages(string s1, string s2)
 {
-
+    cout << "Setting " << s1 << " and " << s2 << endl;
+    widget.stanceLeft->setText(QString::fromStdString(s1));
+    widget.stanceRight->setText(QString::fromStdString(s2));
     istringstream is1(s1);
     istringstream is2(s2);
     string part = s1;
@@ -72,14 +78,54 @@ void mainScreen::setImages(string s1, string s2)
 
 void mainScreen::saveMatch(QString s)
 {
-    cout << "Test";
     QFile file(s);
     if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        cout<< "FUC";
         return;   
     }
     QTextStream out(&file);
     out << QString::fromStdString(m.toString());
     file.close();
+}
+
+void mainScreen::setLanguage(QAction* act)
+{
+    cout << act->text().toStdString();
+    QApplication::instance()->removeTranslator(txtr);
+    txtr->load(tr("%1.qm").arg(act->text()));
+    QApplication::instance()->installTranslator(txtr);
+    widget.retranslateUi(this);
+}
+
+void mainScreen::createMenus()
+{
+    menu = menuBar()->addMenu(tr("&Language"));
+    langGroup = new QActionGroup(this);
+    
+    en = new QAction(tr("English"), this);
+    sp = new QAction(tr("Spanish"), this);
+    jp = new QAction(tr("Japanese"), this);
+    cn = new QAction(tr("Chinese"), this);
+    kr = new QAction(tr("Korean"), this);
+    
+    en->setCheckable(true);
+    sp->setCheckable(true);
+    jp->setCheckable(true);
+    cn->setCheckable(true);
+    kr->setCheckable(true);
+    
+    langGroup->addAction(en);
+    langGroup->addAction(jp);
+    langGroup->addAction(kr);
+    langGroup->addAction(sp);
+    langGroup->addAction(cn);
+    menu->addAction(en);
+    menu->addAction(sp);
+    menu->addAction(jp);
+    menu->addAction(kr);
+    menu->addAction(cn);
+    
+    en->setChecked(true);
+    
+    connect(langGroup, &QActionGroup::triggered,this, &setLanguage);
 }

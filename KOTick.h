@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Dedster
+ * Copyright (C) 2018 alper_000
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,23 +16,27 @@
  */
 
 /* 
- * File:   TKOTick.cpp
- * Author: Dedster
- * 
- * Created on August 12, 2018, 3:29 PM
+ * File:   KOTick.h
+ * Author: alper_000
+ *
+ * Created on September 3, 2018, 7:34 PM
  */
 
-#include "TKOTick.h"
+#ifndef KOTICK_H
+#define KOTICK_H
 
-TKOTick::TKOTick(Boxer* a, Boxer* b)
-{
-    tkoee = (a->isDown())?*a:*b;
-    boxers[0] = *a;
-    boxers[1] = *b;
-}
+#include "GameTick.h"
 
-std::string TKOTick::toString()
-{
-    return tkoee.getName() + " TKOd!";
-}
-    
+
+class KOTick : public GameTick{
+public:
+    KOTick(Boxer *a, Boxer *b, Boxer *downed, Boxer *opponent);
+    KOTick(const KOTick& orig);
+    virtual ~KOTick();
+    string toString();
+private:
+    Boxer winner, loser;
+};
+
+#endif /* KOTICK_H */
+

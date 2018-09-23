@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_roundTab_t {
-    QByteArrayData data[12];
-    char stringdata0[75];
+    QByteArrayData data[14];
+    char stringdata0[91];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,16 +38,18 @@ QT_MOC_LITERAL(3, 20, 6), // "string"
 QT_MOC_LITERAL(4, 27, 2), // "s1"
 QT_MOC_LITERAL(5, 30, 2), // "s2"
 QT_MOC_LITERAL(6, 33, 8), // "endRound"
-QT_MOC_LITERAL(7, 42, 10), // "toggleAuto"
-QT_MOC_LITERAL(8, 53, 6), // "reveal"
-QT_MOC_LITERAL(9, 60, 4), // "test"
-QT_MOC_LITERAL(10, 65, 1), // "i"
-QT_MOC_LITERAL(11, 67, 7) // "advance"
+QT_MOC_LITERAL(7, 42, 11), // "toggleSound"
+QT_MOC_LITERAL(8, 54, 3), // "val"
+QT_MOC_LITERAL(9, 58, 10), // "toggleAuto"
+QT_MOC_LITERAL(10, 69, 6), // "reveal"
+QT_MOC_LITERAL(11, 76, 4), // "test"
+QT_MOC_LITERAL(12, 81, 1), // "i"
+QT_MOC_LITERAL(13, 83, 7) // "advance"
 
     },
     "roundTab\0setImages\0\0string\0s1\0s2\0"
-    "endRound\0toggleAuto\0reveal\0test\0i\0"
-    "advance"
+    "endRound\0toggleSound\0val\0toggleAuto\0"
+    "reveal\0test\0i\0advance"
 };
 #undef QT_MOC_LITERAL
 
@@ -57,7 +59,7 @@ static const uint qt_meta_data_roundTab[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -65,23 +67,25 @@ static const uint qt_meta_data_roundTab[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   44,    2, 0x06 /* Public */,
-       6,    0,   49,    2, 0x06 /* Public */,
+       1,    2,   49,    2, 0x06 /* Public */,
+       6,    0,   54,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       7,    0,   50,    2, 0x08 /* Private */,
-       8,    0,   51,    2, 0x08 /* Private */,
-       9,    1,   52,    2, 0x08 /* Private */,
-      11,    0,   55,    2, 0x08 /* Private */,
+       7,    1,   55,    2, 0x0a /* Public */,
+       9,    0,   58,    2, 0x08 /* Private */,
+      10,    0,   59,    2, 0x08 /* Private */,
+      11,    1,   60,    2, 0x08 /* Private */,
+      13,    0,   63,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3, 0x80000000 | 3,    4,    5,
     QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void, QMetaType::Bool,    8,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   10,
+    QMetaType::Void, QMetaType::Int,   12,
     QMetaType::Void,
 
        0        // eod
@@ -95,10 +99,11 @@ void roundTab::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         switch (_id) {
         case 0: _t->setImages((*reinterpret_cast< string(*)>(_a[1])),(*reinterpret_cast< string(*)>(_a[2]))); break;
         case 1: _t->endRound(); break;
-        case 2: _t->toggleAuto(); break;
-        case 3: _t->reveal(); break;
-        case 4: _t->test((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 5: _t->advance(); break;
+        case 2: _t->toggleSound((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 3: _t->toggleAuto(); break;
+        case 4: _t->reveal(); break;
+        case 5: _t->test((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 6: _t->advance(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -145,13 +150,13 @@ int roundTab::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 7;
     }
     return _id;
 }

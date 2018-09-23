@@ -27,12 +27,16 @@ public:
     Ui::Form uiWidget;
 signals:
     void setImages(string s1, string s2);
+    void toggleSoundTabs(bool val);
 public slots:
+    void toggleSound(bool val);
     void createRounds(Match *m, bool spoilers);
     void showNext();
 
 private:
     int numRounds;
+    void changeEvent(QEvent *event);
+    bool sound;
 };
 
 #endif /* ROUNDTABS_H */
