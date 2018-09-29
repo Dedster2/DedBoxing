@@ -25,9 +25,9 @@ QT_BEGIN_NAMESPACE
 class Ui_roundTab
 {
 public:
-    QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
     QListWidget *list;
+    QHBoxLayout *horizontalLayout_2;
     QLabel *label;
     QHBoxLayout *layoutStats;
     boxerRoundStats *boxerStats1;
@@ -43,21 +43,23 @@ public:
             roundTab->setObjectName(QStringLiteral("roundTab"));
         roundTab->setWindowModality(Qt::WindowModal);
         roundTab->resize(801, 579);
-        verticalLayout_2 = new QVBoxLayout(roundTab);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout = new QVBoxLayout();
+        verticalLayout = new QVBoxLayout(roundTab);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setSizeConstraint(QLayout::SetNoConstraint);
         list = new QListWidget(roundTab);
         list->setObjectName(QStringLiteral("list"));
 
         verticalLayout->addWidget(list);
 
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         label = new QLabel(roundTab);
         label->setObjectName(QStringLiteral("label"));
         label->setAlignment(Qt::AlignCenter);
 
-        verticalLayout->addWidget(label);
+        horizontalLayout_2->addWidget(label);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
 
         layoutStats = new QHBoxLayout();
         layoutStats->setObjectName(QStringLiteral("layoutStats"));
@@ -74,12 +76,6 @@ public:
 
         verticalLayout->addLayout(layoutStats);
 
-        verticalLayout->setStretch(0, 10);
-        verticalLayout->setStretch(1, 1);
-        verticalLayout->setStretch(2, 4);
-
-        verticalLayout_2->addLayout(verticalLayout);
-
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         toggleAuto = new QPushButton(roundTab);
@@ -93,7 +89,7 @@ public:
         horizontalLayout->addWidget(pbSpoilerUnhide);
 
 
-        verticalLayout_2->addLayout(horizontalLayout);
+        verticalLayout->addLayout(horizontalLayout);
 
         statScope = new QCheckBox(roundTab);
         statScope->setObjectName(QStringLiteral("statScope"));
@@ -101,7 +97,7 @@ public:
         statScope->setAutoFillBackground(false);
         statScope->setTristate(false);
 
-        verticalLayout_2->addWidget(statScope);
+        verticalLayout->addWidget(statScope);
 
 
         retranslateUi(roundTab);

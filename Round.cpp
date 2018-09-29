@@ -30,7 +30,7 @@ Round::Round(int tickLength, int downLimit) : tickLength(tickLength),
 
 Boxer* Round::getBoxers()
 {
-    return boxersEnd;
+    return ticks[0]->getBoxers();
 }
 
 
@@ -74,9 +74,13 @@ bool Round::createRound(Boxer* a, Boxer* b)
                 }
                 else
                 {
-                    CountTick *ct = new CountTick(a, b, downed, opponent);
-                    ticks[curTick++] = ct;
-                    if(ct->ko())
+                    int timeDown = downed->down(opponent);
+                    for(int curCount = 0; curCount < timeDown; curCount++)
+                    {
+                        CountTick *ct = new CountTick(a, b, downed, opponent, curCount);
+                        ticks[curTick++] = ct;
+                    }
+                    if(timeDown == 10)
                     {
                         ticks[curTick++] = new KOTick(a,b, downed, opponent);
                         return true;

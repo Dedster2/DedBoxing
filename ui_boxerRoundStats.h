@@ -24,6 +24,7 @@ class Ui_boxerRoundStats
 {
 public:
     QVBoxLayout *verticalLayout;
+    QLabel *lblName;
     QFormLayout *formLayout;
     QLabel *label;
     QLineEdit *lePunchThrown;
@@ -45,6 +46,13 @@ public:
         boxerRoundStats->resize(558, 595);
         verticalLayout = new QVBoxLayout(boxerRoundStats);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        lblName = new QLabel(boxerRoundStats);
+        lblName->setObjectName(QStringLiteral("lblName"));
+        lblName->setFrameShape(QFrame::NoFrame);
+        lblName->setAlignment(Qt::AlignCenter);
+
+        verticalLayout->addWidget(lblName);
+
         formLayout = new QFormLayout();
         formLayout->setObjectName(QStringLiteral("formLayout"));
         label = new QLabel(boxerRoundStats);
@@ -136,6 +144,7 @@ public:
     void retranslateUi(QWidget *boxerRoundStats)
     {
         boxerRoundStats->setWindowTitle(QApplication::translate("boxerRoundStats", "boxerRoundStats", nullptr));
+        lblName->setText(QApplication::translate("boxerRoundStats", "a", nullptr));
         label->setText(QApplication::translate("boxerRoundStats", "Punches Thrown", nullptr));
         label_2->setText(QApplication::translate("boxerRoundStats", "Punches Landed", nullptr));
         label_5->setText(QApplication::translate("boxerRoundStats", "Damage Taken", nullptr));

@@ -350,6 +350,7 @@ void Boxer::tempDamage(float damage)
     damageTaken += damage;
     damageTakenT += damage;
     stamina-= damage * 4;
+    stamina = max((float)1, stamina);
 }
 
 bool Boxer::clinchReq()

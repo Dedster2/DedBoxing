@@ -52,7 +52,7 @@ PunchReactTick::PunchReactTick(Boxer *a, Boxer *b, Boxer* thrower, Boxer* reciev
         blockDodgeFlag = 0;
         reciever->takesDamage(damageTaken);
         string t = side + bodyPart + punchThrown.getName() + "Hit:" + bodyPart + punchThrown.getName() + "Hit:" + 
-        side + punchThrown.getName() + "Hit:" + bodyPart +  "Hit:" + punchThrown.getName()  + "Hit:Hit"; 
+        side + punchThrown.getName() + "Hit:" + bodyPart + "Hit:" + punchThrown.getName() + "Hit:" + side + "Hit:Hit"; 
         reciever->setState(t);
     }
     //thrower->setState("Stance");

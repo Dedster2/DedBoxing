@@ -25,9 +25,9 @@
 #include "CountTick.h"
 
 
-CountTick::CountTick(Boxer* a, Boxer* b, Boxer* down, Boxer* opp)
+CountTick::CountTick(Boxer* a, Boxer* b, Boxer* down, Boxer* opp, int count)
 {
-    downTime = down->down(opp);
+    this->count = count;
     boxers[0] = *a;
     boxers[1] = *b;
 }
@@ -35,15 +35,7 @@ CountTick::CountTick(Boxer* a, Boxer* b, Boxer* down, Boxer* opp)
 
 string CountTick::toString()
 {
-    string s = "";
-    for (int i = 0; i < downTime; i++)
-    {
-        s.append(to_string(i + 1) + "! ");
-    }
-    return s;
+    return to_string(count + 1);
 }
 
-bool CountTick::ko()
-{
-    return (downTime >= 10);
-}
+

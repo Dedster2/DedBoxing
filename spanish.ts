@@ -149,6 +149,10 @@
         <source>Health</source>
         <translation>Vida</translation>
     </message>
+    <message>
+        <source>a</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>boxerWidget</name>

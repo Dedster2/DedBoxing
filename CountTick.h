@@ -30,11 +30,11 @@
 
 class CountTick : public GameTick{
 public:
-    CountTick(Boxer *a, Boxer *b, Boxer *down, Boxer *opp);
+    CountTick(Boxer *a, Boxer *b, Boxer *down, Boxer *opp, int count);
     string toString();
     bool ko();
 private:
-    int downTime;
+    int count;
 
 };
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ko">
+<TS version="2.1" language="zh">
 <context>
     <name>Form</name>
     <message>
@@ -11,7 +11,43 @@
 <context>
     <name>GameTick</name>
     <message>
-        <source>%1 threw a %2 %3 at %4&apos;s %5. </source>
+        <source>Jab</source>
+        <translation>刺拳</translation>
+    </message>
+    <message>
+        <source>Hook</source>
+        <translation>勾拳</translation>
+    </message>
+    <message>
+        <source>Straight</source>
+        <translation>直拳</translation>
+    </message>
+    <message>
+        <source>Upper</source>
+        <translation>上钩拳</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>左</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>右</translation>
+    </message>
+    <message>
+        <source>Head</source>
+        <translation>头</translation>
+    </message>
+    <message>
+        <source>Torso</source>
+        <translation>胸部</translation>
+    </message>
+    <message>
+        <source>Stomach</source>
+        <translation>胃</translation>
+    </message>
+    <message>
+        <source>Unknown string</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -27,44 +63,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Jab</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hook</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Straight</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Upper</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Head</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Torso</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stomach</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown string</source>
-        <translation type="unfinished"></translation>
+        <source>%1 threw a %2 %3 at %4&apos;s %5. </source>
+        <translation type="unfinished">%1出%2%3击打%4的%5 </translation>
     </message>
 </context>
 <context>
@@ -90,6 +90,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Sounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Start Match</source>
         <translation type="unfinished"></translation>
     </message>
@@ -99,10 +103,6 @@
     </message>
     <message>
         <source>Save Match</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sounds</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -215,7 +215,7 @@
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">右</translation>
     </message>
     <message>
         <source>Options</source>
@@ -223,7 +223,7 @@
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">权</translation>
     </message>
     <message>
         <source>%1.qm</source>
